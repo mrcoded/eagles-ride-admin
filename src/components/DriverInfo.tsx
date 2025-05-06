@@ -1,5 +1,5 @@
 import { DriverInfoProps } from "@/types";
-import { Car, IdCard, MailCheck, PhoneCall } from "lucide-react";
+import { Car, PhoneCall } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function DriverInfo({ selectedDriver }: DriverInfoProps) {
@@ -8,7 +8,7 @@ function DriverInfo({ selectedDriver }: DriverInfoProps) {
       <h3 className="text-slate-200 text-[8px] font-medium">
         Driver's Uploaded Information
       </h3>
-      <div className="flex justify-between items-center gap-0.5 pb-0.5 px-2 bg-purple-500 rounded-sm w-full">
+      <div className="flex justify-between items-center gap-0.5 py-0.5 px-2 bg-purple-500 rounded-sm w-full">
         <p className="flex gap-1 items-center text-slate-200 text-[8px] font-medium">
           <Car className="size-2.5 stroke-orange-300" />
           Car Insurance
