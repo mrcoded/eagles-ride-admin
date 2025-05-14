@@ -13,7 +13,7 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
 import toast from "react-hot-toast";
-import { useAPIMutation } from "../hooks/useAPIMutattion";
+import { useAPIMutation } from "../hooks/useAPIMutation";
 
 export function LoginForm() {
   const [isLoading, setIsLoading] = useState(false);
