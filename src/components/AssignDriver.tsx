@@ -1,5 +1,6 @@
-import { MouseEvent, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { CheckCheck, Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 import {
   Dialog,
@@ -10,8 +11,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { BookingsTableProps } from "@/types";
-import { cn } from "@/lib/utils";
+import { AssignDriverProps } from "@/types";
 import DriverAssignSearch from "./DriverAssignSearch";
 
 function AssignDriver({
@@ -19,20 +19,12 @@ function AssignDriver({
   isLoading,
   selectedItemData,
   assignDriverHandler,
-}: {
-  assignDriverHandler?: (
-    e: MouseEvent<HTMLButtonElement>,
-    driverId: string
-  ) => Promise<void> | undefined;
-  selectedItemData: any;
-  isLoading: boolean;
-  drivers: BookingsTableProps["drivers"];
-}) {
+}: AssignDriverProps) {
   const [query, setQuery] = useState("");
 
   //Get only approved drivers
   const approvedDrivers = drivers?.filter(
-    (data: { isDriverApproved: boolean }) => data.isDriverApproved
+    (data: { isDriverApproved?: boolean }) => data.isDriverApproved
   );
 
   // Filtered list based on search query
