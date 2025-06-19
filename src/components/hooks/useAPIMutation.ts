@@ -1,19 +1,8 @@
+import { FieldValues } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
+
+import { UseAPIMutationOptions } from "@/types";
 import { makeAPIRequest } from "@/lib/apiRequest";
-import { FieldValue, FieldValues } from "react-hook-form";
-
-type LoginData = {
-  email: string;
-  password: string;
-};
-
-type UseAPIMutationOptions = {
-  endpoint: string;
-  method?: string;
-  onMutate?: () => void;
-  onSuccess?: (data: any) => void;
-  onError?: (error: Error) => void;
-};
 
 export function useAPIMutation(options: UseAPIMutationOptions) {
   const { endpoint, method, onMutate, onSuccess, onError } = options;
@@ -26,14 +15,14 @@ export function useAPIMutation(options: UseAPIMutationOptions) {
           data,
           method,
         });
-        console.log(response);
-        // Example check for invalid credentials (customize as needed)
+        // console.log(response);
+        //check for invalid credentials (customize as needed)
         if (response.message === "Invalid Credentials") {
           throw new Error(response.message);
         }
         return response;
       } catch (error: unknown) {
-        console.log(error);
+        // console.log(error);
         throw new Error((error as Error).message);
       }
     },
