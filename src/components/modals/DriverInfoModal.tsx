@@ -7,9 +7,9 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "./ui/dialog";
+} from "../ui/dialog";
 
-function DriverInfo({
+function DriverInfoModal({
   item,
 }: {
   item: {
@@ -21,7 +21,7 @@ function DriverInfo({
   return (
     <div
       key={item.label}
-      className="flex justify-between items-center gap-0.5 py-0.5 px-2 bg-purple-500 rounded-sm w-full"
+      className="flex justify-between items-center gap-0.5 py-0.5 px-2 bg-primary rounded-sm w-full"
     >
       <p className="flex gap-1 items-center text-slate-200 text-[8px] font-medium">
         <item.icon className="size-2.5 stroke-orange-300" />
@@ -56,4 +56,4 @@ function DriverInfo({
   );
 }
 
-export default DriverInfo;
+export default DriverInfoModal;
