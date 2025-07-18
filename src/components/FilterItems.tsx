@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { filters } from "../constants/filterItems";
+
 import {
   Command,
   CommandGroup,
@@ -17,21 +19,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-
-const filters = [
-  {
-    value: "booked",
-    label: "Booked",
-  },
-  {
-    value: "ongoing",
-    label: "Ongoing",
-  },
-  {
-    value: "assigned",
-    label: "Assigned",
-  },
-];
 
 export function FilterItems({
   query,
