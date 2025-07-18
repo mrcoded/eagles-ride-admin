@@ -6,16 +6,19 @@ import QueryProvider from "./providers/QueryProvider.tsx";
 import { Toaster } from "react-hot-toast";
 import { BrowserRouter } from "react-router-dom";
 import GlobalProvider from "./providers/GlobalProvider.tsx";
+import { ThemeProvider } from "./providers/ThemeProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryProvider>
-      <GlobalProvider>
-        <BrowserRouter>
-          <Toaster position="top-center" reverseOrder={false} />
-          <App />
-        </BrowserRouter>
-      </GlobalProvider>
+      <ThemeProvider>
+        <GlobalProvider>
+          <BrowserRouter>
+            <Toaster position="top-center" reverseOrder={false} />
+            <App />
+          </BrowserRouter>
+        </GlobalProvider>
+      </ThemeProvider>
     </QueryProvider>
   </StrictMode>
 );
