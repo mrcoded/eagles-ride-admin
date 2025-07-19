@@ -12,12 +12,12 @@ import useUnAssignDriver from "@/hooks/useUnassignDriver";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 function UnAssignDriver({
-  setIsLoading,
   selectedItemId,
   selectedRideData,
 }: AssignDriverProps) {
   //get driver id from global context
-  const { driverId, isOpen, setIsOpen } = useGlobalContext();
+
+  const { driverId, isOpen, setIsOpen, setIsLoading } = useGlobalContext();
 
   //unassign driver to ride
   const unAssignDriverHandler = useUnAssignDriver({
@@ -33,9 +33,11 @@ function UnAssignDriver({
           <DialogTrigger className="text-red-500 underline font-medium">
             Unassign
           </DialogTrigger>
-          <DialogContent className="w-1/3">
+          <DialogContent className="w-1/4">
             <DialogHeader>
-              <DialogTitle>Confirm Unassign</DialogTitle>
+              <DialogTitle className="dark:text-slate-200">
+                Confirm Unassign
+              </DialogTitle>
               <DialogDescription className="flex justify-between">
                 <span>Are you sure you want to unassign driver?</span>
               </DialogDescription>

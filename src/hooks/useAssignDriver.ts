@@ -60,12 +60,13 @@ const useAssignDriver = ({
           );
           setIsLoading(false);
 
-          selectedRideData?.status === "assigned"
+          selectedRideData?.status !== "assigned"
             ? toast.success("Driver assigned successfully!")
             : toast.success("Driver unassigned successfully!");
         },
       });
     } catch (error) {
+      setIsLoading(false);
       console.log(error);
     }
   };

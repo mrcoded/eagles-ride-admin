@@ -7,7 +7,7 @@ import { ToggleTheme } from "../ToggleTheme";
 export function Sidebar() {
   return (
     <div className="hidden lg:fixed lg:inset-y-0 lg:flex xl:w-64 lg:flex-col bg-white dark:bg-gray-800 p-3 top-0 left-0 h-screen overflow-y-auto w-56">
-      <div className="flex h-16 items-center mb-6 px-4 border-b">
+      <div className="flex h-14 items-center mb-6 px-4 dark:bg-slate-50 border-b">
         <img
           src="/react.svg"
           alt="Nyetir.io Logo"

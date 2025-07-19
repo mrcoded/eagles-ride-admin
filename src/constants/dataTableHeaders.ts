@@ -12,9 +12,9 @@ export const DRIVERS_TABLE_HEADERS = [
 export const RIDES_TABLE_HEADERS = [
   "",
   "Name",
-  "Status",
+  "Phone",
   "Trip Type",
-  "Start Date",
+  "Status",
   "Pickup",
   "Dropoff",
   "",
