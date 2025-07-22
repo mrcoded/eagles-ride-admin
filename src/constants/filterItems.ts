@@ -1,4 +1,4 @@
-export const filters = [
+export const bookingFilters = [
   {
     value: "booked",
     label: "Booked",
@@ -10,5 +10,20 @@ export const filters = [
   {
     value: "assigned",
     label: "Assigned",
+  },
+  {
+    value: "none",
+    label: "Remove Filter",
+  },
+];
+
+export const driverFilters = [
+  {
+    value: "unassigned",
+    label: "UnAssigned",
+  },
+  {
+    value: "none",
+    label: "Remove Filter",
   },
 ];
