@@ -1,15 +1,11 @@
+import { useGlobalContext } from "@/context/GlobalContext";
 import { Command, CommandInput } from "./ui/command";
 
-function SearchInput({
-  title,
-  setQuery,
-}: {
-  title: string;
-  query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-}) {
+function SearchInput({ title }: { title: string }) {
+  const { setQuery } = useGlobalContext();
+
   return (
-    <Command className="flex justify-center rounded-lg border shadow-sm md:max-w-[250px] h-7">
+    <Command className="flex justify-center rounded-lg border shadow-sm md:max-w-[250px] h-8">
       <CommandInput
         onValueChange={(val) => setQuery(val)}
         placeholder={`Search a ${title}`}

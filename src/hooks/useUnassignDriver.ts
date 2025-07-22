@@ -39,15 +39,15 @@ const useUnAssignDriver = ({
         driverId,
       };
 
+      const isDriverAssigned = selectedRideData?.drivers?.some(
+        (d: { _id: string }) => d._id !== driverId
+      );
+
       //Invoke mutation
       await mutation.mutateAsync(data, {
         onSuccess: () => {
           //check updated driver data
-          if (
-            selectedRideData?.drivers?.some(
-              (d: { _id: string }) => d._id !== driverId
-            )
-          ) {
+          if (!isDriverAssigned) {
             toast.success("Driver unassigned successfully.");
           }
 

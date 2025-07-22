@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Check, ChevronsUpDown } from "lucide-react";
+import { Check, ChevronsUpDown, X } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { filters } from "../constants/filterItems";
+import { bookingFilters, driverFilters } from "../constants/filterItems";
 
 import {
   Command,
@@ -19,17 +19,14 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { useGlobalContext } from "@/context/GlobalContext";
 
-export function FilterItems({
-  query,
-  setQuery,
-  title,
-}: {
-  title: string;
-  query: string;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-}) {
-  const [open, setOpen] = React.useState(false);
+export function FilterItems({ title }: { title: string }) {
+  const [open, setOpen] = useState(false);
+
+  const { query, setQuery } = useGlobalContext();
+
+  const filters = title === "bookings" ? bookingFilters : driverFilters;
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -38,7 +35,7 @@ export function FilterItems({
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between h-7"
+          className="w-[200px] justify-between h-8 dark:text-slate-400"
         >
           {query
             ? filters.find((filter) => filter.value === query)?.label
@@ -55,18 +52,28 @@ export function FilterItems({
                   key={filter.value}
                   value={filter.value}
                   onSelect={(currentValue) => {
-                    setQuery(currentValue === query ? "" : currentValue);
+                    console.log(currentValue, query);
+                    if (currentValue === "none") {
+                      setQuery("");
+                    }
+                    if (currentValue !== "none") {
+                      setQuery(currentValue === query ? "" : currentValue);
+                    }
                     setOpen(false);
                   }}
                   className="cursor-pointer hover:font-medium"
                 >
                   {filter.label}
-                  <Check
-                    className={cn(
-                      "ml-auto",
-                      query === filter.value ? "opacity-100" : "opacity-0"
-                    )}
-                  />
+                  {query == "none" ? (
+                    <X className="ml-auto" />
+                  ) : (
+                    <Check
+                      className={cn(
+                        "ml-auto",
+                        query === filter.value ? "opacity-100" : "opacity-0"
+                      )}
+                    />
+                  )}
                 </CommandItem>
               ))}
             </CommandGroup>

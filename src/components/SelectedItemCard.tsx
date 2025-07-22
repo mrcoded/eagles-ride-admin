@@ -1,14 +1,14 @@
 import { type LucideIcon } from "lucide-react";
-import { selectedCardItems } from "./constants/selectedCardItems";
+import { selectedCardItems } from "../constants/selectedCardItems";
 
 function SelectedItemCard({
   selectedItemData,
 }: {
   selectedItemData:
     | {
-        schedule?: string;
         status: string;
         trip_type: string;
+        schedule?: string;
       }
     | undefined;
 }) {
@@ -27,13 +27,15 @@ function SelectedItemCard({
         ) => (
           <div
             key={label}
-            className="flex flex-col items-center p-1.5 bg-purple-500 w-12 h-[50px] rounded-md"
+            className="flex flex-col items-center p-2 bg-orange-500 dark:bg-orange-600 w-16 h-16 rounded-md"
           >
-            <div className="flex items-center justify-center bg-purple-400 w-5 h-5 rounded-full">
-              <item.icon className="size-2.5 stroke-orange-300" />
+            <div className="flex items-center justify-center bg-slate-100 size-5 rounded-full">
+              <item.icon className="size-3 stroke-orange-600" />
             </div>
-            <p className="text-[4px] mt-1 text-slate-200">{item.label}</p>
-            <p className="font-bold text-[5px] text-slate-200 capitalize">
+            <p className="text-[8px] mt-1 text-slate-50 tracking-wide">
+              {item.label}
+            </p>
+            <p className="font-bold text-[7px] text-slate-100 capitalize">
               {item?.value}
             </p>
           </div>
