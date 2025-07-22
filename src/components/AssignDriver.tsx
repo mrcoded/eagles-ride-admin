@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { CheckCheck, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -20,15 +20,13 @@ import {
 
 function AssignDriver({
   drivers,
-  isLoading,
-  setIsLoading,
   selectedItemId,
   selectedRideData,
 }: AssignDriverProps) {
-  const [query, setQuery] = useState("");
+  const { query } = useGlobalContext();
 
   //setIsOpen from global context
-  const { setIsOpen } = useGlobalContext();
+  const { setIsOpen, isLoading, setIsLoading } = useGlobalContext();
 
   //assign driver(s) to ride
   const assignDriverHandler = useAssignDriver({
@@ -58,49 +56,60 @@ function AssignDriver({
   }, [query, approvedDrivers]);
 
   return (
-    <Dialog>
-      <DialogTrigger
-        onClick={() => setIsOpen(true)}
-        className={cn(
-          `flex items-center gap-1 w-18 h-5 bg-slate-200 text-[7px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
-          isLoading && "pointer-events-none bg-slate-400 "
-        )}
-      >
-        {selectedRideData?.status === "assigned"
-          ? "Change Driver"
-          : "Assign Driver"}
-        {isLoading ? (
-          <Loader2 className="size-2 animate-spin" />
-        ) : (
-          <CheckCheck className="size-2" />
-        )}
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Select any available driver</DialogTitle>
-          <DialogDescription className="flex justify-between">
-            <span>This is a list of only available drivers.</span>
-            {/* UnAssign Driver */}
-            <UnAssignDriver
-              isLoading={isLoading}
-              selectedItemId={selectedItemId}
+    <div className="block py-0 w-fit">
+      {selectedRideData?.status === "assigned" && (
+        <p className="text-[6px] pr-2 font-bold pt-1.5 pl-1.5 bg-orange-500 text-slate-200 rounded-s-sm">
+          Assigned to {selectedItemId}
+        </p>
+      )}
+
+      <Dialog>
+        <DialogTrigger
+          onClick={() => {
+            setIsOpen(true);
+            setIsLoading(true);
+          }}
+          className={cn(
+            `flex items-center gap-1 w-18 h-5 bg-slate-200 text-[7px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
+            isLoading && "pointer-events-none bg-slate-400 "
+          )}
+        >
+          {selectedRideData?.status === "assigned"
+            ? "Change Driver"
+            : "Assign Driver"}
+          {isLoading ? (
+            <Loader2 className="size-2 animate-spin" />
+          ) : (
+            <CheckCheck className="size-2" />
+          )}
+        </DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="dark:text-slate-200">
+              Select any available driver
+            </DialogTitle>
+            <DialogDescription className="flex justify-between">
+              <span>This is a list of only available drivers.</span>
+              {/* UnAssign Driver */}
+              <UnAssignDriver
+                isLoading={isLoading}
+                selectedItemId={selectedItemId}
+                selectedRideData={selectedRideData}
+                setIsLoading={setIsLoading}
+              />
+            </DialogDescription>
+          </DialogHeader>
+          <div>
+            <DriverAssignSearch
+              filteredDrivers={filteredDrivers}
               selectedRideData={selectedRideData}
               setIsLoading={setIsLoading}
+              assignDriverHandler={assignDriverHandler}
             />
-          </DialogDescription>
-        </DialogHeader>
-        <div>
-          <DriverAssignSearch
-            query={query}
-            setQuery={setQuery}
-            filteredDrivers={filteredDrivers}
-            selectedRideData={selectedRideData}
-            setIsLoading={setIsLoading}
-            assignDriverHandler={assignDriverHandler}
-          />
-        </div>
-      </DialogContent>
-    </Dialog>
+          </div>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
 

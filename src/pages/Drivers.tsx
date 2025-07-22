@@ -1,96 +1,99 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { DriversDataProps } from "@/types";
 
-import UserModal from "@/components/modals/UserModal";
-import RideBookingsTable from "@/components/tables/RideBookingsTable";
-import { BookingsModalProps, BookingsTableProps } from "@/types";
-import { useAPIMutation } from "@/components/hooks/useAPIMutation";
-import toast from "react-hot-toast";
+import SearchInput from "@/components/SearchInput";
+import DataTable from "@/components/tables/DataTable";
+import { FilterItems } from "@/components/FilterItems";
+import DriverModal from "@/components/modals/DriverTableModal";
+
+import useApproveDriver from "@/hooks/useAprroveDriver";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 function Drivers() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [userModalOpen, setUserModalOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState<string | undefined>("");
-  const [selectedItemId, setSelectedItemId] = useState<string | null>(null);
+  const { query, selectedItemId, setIsLoading, isLoading, isModalOpen } =
+    useGlobalContext();
 
   const {
     status,
     data: driversData,
     error,
     isFetching,
-  } = useQuery<BookingsTableProps["drivers"]>({
+  } = useQuery<DriversDataProps[]>({
     queryKey: ["drivers"],
   });
 
-  const {
-    // status,
-    data: userData,
-    // error,
-    isFetching: userFetching,
-  } = useQuery<BookingsModalProps>({
-    queryKey: ["users"],
+  //Get selected item data
+  const selectedRideData = driversData?.filter(
+    (data: { _id: string }) => data._id === selectedItemId
+  )[0];
+
+  //approve driver handler
+  const approveDriverHandler = useApproveDriver({
+    selectedItemId,
+    selectedRideData,
+    setIsLoading,
   });
 
-  // Use the useAPImutation hook for logging in
-  const mutation = useAPIMutation({
-    endpoint: `admin/approve-driver/${selectedItemId}`,
-    method: "PATCH",
-    onMutate: () => {
-      console.log("Approving Driver request...");
-      setIsLoading(true);
-    },
-    onError: (error) => {
-      setIsLoading(false);
-      toast.error(error.message);
-      console.log(error);
-    },
-  });
+  // Filtered drivers based on search query
+  const filterDrivers = useMemo(() => {
+    const querySearch = query.trim().toLowerCase();
 
-  const { users } = userData ?? { user: undefined };
-  console.log(users, driversData);
+    if (!querySearch) return driversData;
+
+    const searchResult = driversData?.filter((item) => {
+      console.log(item);
+      return [
+        item?.email,
+        item?.status,
+        item?.fullname,
+        item?.phone_number,
+        item?.residential_address,
+      ].some((field) => field?.toLowerCase().includes(querySearch));
+    });
+
+    return searchResult;
+  }, [query, driversData]);
+
+  console.log(error, status);
   return (
-    <div className="flex-1 ">
-      {/* Main Content */}
-      <main className="flex flex-col md:flex-row gap-2 px-2 pt-2">
-        {/* Left Section */}
-        <section className="w-full flex-1">
-          {/* Header */}
-          <header className="bg-white shadow py-1 px-6">
-            <h1 className="text-xl font-bold">Rent Buddy</h1>
-          </header>
-          {/* Upcoming Bookings */}
-          <h2 className="text-base font-semibold mb-2">Upcoming Bookings</h2>
-          {/* <div className="flex flex-col flex-1"> */}
-          <RideBookingsTable
-            drivers={driversData}
-            // bookings={rides}
-            selectedItemId={selectedItemId}
-            setSelectedItemId={setSelectedItemId}
-            setSelectedUserId={setSelectedUserId}
-            setUserModalOpen={setUserModalOpen}
+    <>
+      {error && <div className="text-red-500 text-4xl">Error</div>}
+      <div className="inline-flex gap-3 w-full">
+        <section className="w-full flex flex-col flex-1 justify-between">
+          {/* nav */}
+          <nav className="flex justify-between items-center gap-2 mb-5">
+            <SearchInput title="Driver" />
+            <div className="text-slate-200 text-[9px] font-medium">
+              <FilterItems title="Drivers" />
+            </div>
+          </nav>
+
+          {/*Drivers Table*/}
+          <DataTable
+            data={filterDrivers}
+            type="driver"
+            isLoading={isFetching}
           />
-          <div className="bg-white shadow py-2.5 px-6 mt-auto">
+
+          {/* Pagination */}
+          <div className="flex flex-grow bg-white shadow py-2.5 px-6 mt-auto">
             <div className="text-xl font-bold">Pagination</div>
           </div>
-          {/* </div> */}
         </section>
 
         {/* Right Section */}
-        {userModalOpen && (
+        {isModalOpen && (
           <section className="w-full md:w-[30%] flex flex-col gap-1">
-            <UserModal
-              mutation={mutation}
+            <DriverModal
               isLoading={isLoading}
-              setIsLoading={setIsLoading}
-              userId={selectedUserId}
-              dataSource={driversData}
-              userFetching={userFetching}
-              selectedItemId={selectedItemId}
+              drivers={filterDrivers}
+              approveDriverHandler={approveDriverHandler}
             />
           </section>
         )}
-      </main>
-    </div>
+      </div>
+    </>
   );
 }
 

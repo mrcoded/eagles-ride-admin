@@ -1,6 +1,8 @@
-import { MouseEvent } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
+
+import { DriverAssignSearchProps } from "@/types";
+import { useGlobalContext } from "@/context/GlobalContext";
 
 import {
   Command,
@@ -11,28 +13,40 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { Checkbox } from "./ui/checkbox";
 
 function DriverAssignSearch({
-  query,
-  setQuery,
   filteredDrivers,
-  selectedItemData,
+  selectedRideData,
   assignDriverHandler,
-}: {
-  query: string;
-  selectedItemData: {
-    driver: {
-      _id: string;
-      fullname: string;
-    };
+}: DriverAssignSearchProps) {
+  //Global context
+  const {
+    setDriverId,
+    selectedItemId,
+    setSelectedItemId,
+    setIsLoading,
+    setIsOpen,
+    query,
+    setQuery,
+  } = useGlobalContext();
+
+  // Handle checkbox change
+  const handleCheckboxChange = (checked: boolean, itemId: string) => {
+    if (checked) {
+      setIsOpen(true);
+      setDriverId(itemId);
+      setSelectedItemId(itemId);
+    } else {
+      setSelectedItemId(null);
+    }
   };
-  assignDriverHandler?: (
-    e: MouseEvent<HTMLButtonElement>,
-    driverId: string
-  ) => Promise<void> | undefined;
-  setQuery: React.Dispatch<React.SetStateAction<string>>;
-  filteredDrivers: Array<{ _id: string; fullname: string }> | undefined;
-}) {
+
+  //Get existing assign driver IDs
+  const selectedDriverIds =
+    selectedRideData?.drivers?.map((driver: { _id: string }) => driver._id) ||
+    [];
+
   return (
     <Command className="rounded-lg border shadow-md md:min-w-[450px]">
       <CommandInput
@@ -48,18 +62,26 @@ function DriverAssignSearch({
               <CommandItem
                 key={item._id}
                 value={item.fullname}
-                disabled={item?._id === selectedItemData?.driver?._id}
+                className="cursor-pointer"
+                disabled={selectedItemId === item._id}
               >
                 <Car />
                 <button
                   key={item._id}
                   className="flex justify-between items-center w-full"
-                  onClick={(e) => assignDriverHandler?.(e, item?._id)}
+                  onClick={(e) => assignDriverHandler(e, item._id)}
                 >
                   {item.fullname}
-                  {item?._id === selectedItemData?.driver?._id && (
+                  {selectedDriverIds.includes(item._id) && (
                     <Check className={cn("ml-auto size-5")} />
                   )}
+                  <Checkbox
+                    checked={selectedItemId === item._id}
+                    onCheckedChange={(checked: boolean) =>
+                      handleCheckboxChange(checked, item._id)
+                    }
+                    className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
+                  />
                 </button>
               </CommandItem>
             );
