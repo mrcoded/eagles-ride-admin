@@ -13,7 +13,7 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { Checkbox } from "./ui/checkbox";
+import { Checkbox } from "../ui/checkbox";
 
 function DriverAssignSearch({
   filteredDrivers,
@@ -25,7 +25,6 @@ function DriverAssignSearch({
     setDriverId,
     selectedItemId,
     setSelectedItemId,
-    setIsLoading,
     setIsOpen,
     query,
     setQuery,

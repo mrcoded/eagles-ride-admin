@@ -3,6 +3,7 @@ import { CheckCheck, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { AssignDriverProps } from "@/types";
+
 import UnAssignDriver from "./UnassignDriver";
 import DriverAssignSearch from "./DriverAssignSearch";
 
@@ -25,7 +26,7 @@ function AssignDriver({
 }: AssignDriverProps) {
   const { query } = useGlobalContext();
 
-  //setIsOpen from global context
+  //global context
   const { setIsOpen, isLoading, setIsLoading } = useGlobalContext();
 
   //assign driver(s) to ride
