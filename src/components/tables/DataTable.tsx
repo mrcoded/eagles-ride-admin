@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import TableRowItem from "./TableRowItem";
 
-import toast from "react-hot-toast";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -12,17 +10,9 @@ import {
   DRIVERS_TABLE_HEADERS,
   RIDES_TABLE_HEADERS,
 } from "@/constants/dataTableHeaders";
+import { useGlobalContext } from "@/context/GlobalContext";
 
-const DataTable = ({
-  data,
-  type,
-  selectedItemId,
-  setSelectedUserId,
-  setSelectedItemId,
-  setUserModalOpen,
-  onDelete,
-  isLoading,
-}: BookingsTableProps) => {
+const DataTable = ({ data, type, isLoading }: BookingsTableProps) => {
   // GET Table headers
   const TABLE_HEADERS =
     type === "booking"
@@ -31,8 +21,13 @@ const DataTable = ({
       ? DRIVERS_TABLE_HEADERS
       : [];
 
-  const [deletingId, setDeletingId] = useState<string | null>(null);
-  console.log(data);
+  const {
+    selectedItemId,
+    setSelectedUserId,
+    setSelectedItemId,
+    setIsModalOpen,
+  } = useGlobalContext();
+
   // Handle checkbox change
   const handleCheckboxChange = (
     checked: boolean,
@@ -42,38 +37,20 @@ const DataTable = ({
     if (checked) {
       setSelectedItemId(itemId);
       setSelectedUserId(userId);
-      setUserModalOpen(true);
+      setIsModalOpen(true);
     } else {
       setSelectedItemId(null);
       setSelectedUserId("");
-      setUserModalOpen(false);
-    }
-  };
-
-  // Confirm and delete action
-  const ConfirmandDeleteHandler = async (id: string) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this item?"
-    );
-    if (!confirm) return;
-
-    setDeletingId(id);
-    try {
-      await onDelete(id);
-      toast.success("Deleted successfully.");
-    } catch (error: any) {
-      toast.error("Delete failed: " + error?.message || "Unexpected error");
-    } finally {
-      setDeletingId(null);
+      setIsModalOpen(false);
     }
   };
 
   return (
-    <table className="w-full bg-white rounded shadow overflow-hidden">
-      <thead className="bg-gray-200 text-gray-700 text-sm uppercase">
+    <table className="w-full bg-white dark:bg-slate-800 rounded shadow overflow-hidden">
+      <thead className="bg-orange-400 dark:bg-orange-600 text-slate-800 dark:text-slate-100 text-xs uppercase">
         <tr>
           {TABLE_HEADERS.map((header, index) => (
-            <th key={index} className="p-1.5 text-left">
+            <th key={index} className="p-1.5 text-left whitespace-nowrap">
               {header}
             </th>
           ))}
@@ -81,7 +58,7 @@ const DataTable = ({
       </thead>
       <tbody>
         {isLoading
-          ? Array(5)
+          ? Array(10)
               .fill(null)
               .map((_, i) => (
                 <tr key={i} className="h-8 border-b">
@@ -101,8 +78,6 @@ const DataTable = ({
                 type={type}
                 selectedItemId={selectedItemId}
                 onSelect={handleCheckboxChange}
-                onDelete={() => ConfirmandDeleteHandler(item._id)}
-                isDeleting={deletingId === item._id}
               />
             ))}
       </tbody>
