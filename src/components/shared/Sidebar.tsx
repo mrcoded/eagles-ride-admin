@@ -16,7 +16,7 @@ export function Sidebar() {
         />
       </div>
       <nav className="flex-1 p-4">
-        <ul className="space-y-5">
+        <ul className="space-y-3.5">
           {navigationItems.map((item) => (
             <li key={item.label}>
               <Link

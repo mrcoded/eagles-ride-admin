@@ -2,7 +2,7 @@ import { LucideIcon, PhoneCall, MailCheck } from "lucide-react";
 
 import { SelectedItemInfoProps } from "@/types";
 
-import BookedRideInfo from "./BookedRideInfo";
+import BookedRideInfo from "./bookings/BookedRideInfo";
 import DriverInfo from "./modals/DriverInfoModal";
 import { selectedDriverInfo } from "../constants/selectedDriverInfo";
 

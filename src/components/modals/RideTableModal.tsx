@@ -3,7 +3,7 @@ import { Loader2 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useGlobalContext } from "@/context/GlobalContext";
 
-import AssignDriver from "../AssignDriver";
+import AssignDriver from "../drivers/AssignDriver";
 import SelectedItemInfo from "../SelectedItemInfo";
 import SelectedItemCard from "../SelectedItemCard";
 import SelectedUserAvatar from "../SelectedUserAvatar";
