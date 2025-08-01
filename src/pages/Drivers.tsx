@@ -1,17 +1,17 @@
-import { useMemo } from "react";
+import { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { DriversDataProps } from "@/types";
 
 import SearchInput from "@/components/SearchInput";
 import DataTable from "@/components/tables/DataTable";
 import { FilterItems } from "@/components/FilterItems";
-import DriverModal from "@/components/modals/DriverTableModal";
+import DriverTableModal from "@/components/modals/DriverTableModal";
 
-import useApproveDriver from "@/hooks/useAprroveDriver";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 function Drivers() {
-  const { query, selectedItemId, setIsLoading, isLoading, isModalOpen } =
+  //Get global context
+  const { query, selectedItemId, setSelectedRideData, isModalOpen } =
     useGlobalContext();
 
   const {
@@ -28,12 +28,10 @@ function Drivers() {
     (data: { _id: string }) => data._id === selectedItemId
   )[0];
 
-  //approve driver handler
-  const approveDriverHandler = useApproveDriver({
-    selectedItemId,
-    selectedRideData,
-    setIsLoading,
-  });
+  //Set selected ride data
+  useEffect(() => {
+    setSelectedRideData(selectedRideData);
+  }, [selectedRideData]);
 
   // Filtered drivers based on search query
   const filterDrivers = useMemo(() => {
@@ -42,7 +40,6 @@ function Drivers() {
     if (!querySearch) return driversData;
 
     const searchResult = driversData?.filter((item) => {
-      console.log(item);
       return [
         item?.email,
         item?.status,
@@ -70,11 +67,13 @@ function Drivers() {
           </nav>
 
           {/*Drivers Table*/}
-          <DataTable
-            data={filterDrivers}
-            type="driver"
-            isLoading={isFetching}
-          />
+          <div className="overflow-x-auto">
+            <DataTable
+              data={filterDrivers}
+              type="driver"
+              isLoading={isFetching}
+            />
+          </div>
 
           {/* Pagination */}
           <div className="flex flex-grow bg-white shadow py-2.5 px-6 mt-auto">
@@ -85,11 +84,7 @@ function Drivers() {
         {/* Right Section */}
         {isModalOpen && (
           <section className="w-full md:w-[30%] flex flex-col gap-1">
-            <DriverModal
-              isLoading={isLoading}
-              drivers={filterDrivers}
-              approveDriverHandler={approveDriverHandler}
-            />
+            <DriverTableModal drivers={filterDrivers} />
           </section>
         )}
       </div>
