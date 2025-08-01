@@ -15,7 +15,7 @@ function SelectedItemCard({
   const cardItems = selectedCardItems(selectedItemData);
 
   return (
-    <div className="grid grid-cols-3 gap-1.5 p-1">
+    <div className="grid grid-cols-3 gap-1.5 py-1">
       {cardItems.map(
         (
           item: {
@@ -27,12 +27,12 @@ function SelectedItemCard({
         ) => (
           <div
             key={label}
-            className="flex flex-col items-center p-2 bg-orange-500 dark:bg-orange-600 w-16 h-16 rounded-md"
+            className="flex flex-col items-center p-2 bg-orange-500 dark:bg-orange-600 w-14 h-14 xl:w-16 xl:h-16 rounded-md"
           >
-            <div className="flex items-center justify-center bg-slate-100 size-5 rounded-full">
-              <item.icon className="size-3 stroke-orange-600" />
+            <div className="flex items-center justify-center bg-slate-100 size-4 xl:size-5 rounded-full">
+              <item.icon className="size-2.5 xl:size-3 stroke-orange-600" />
             </div>
-            <p className="text-[8px] mt-1 text-slate-50 tracking-wide">
+            <p className="text-[8px] mt-0.5 lg:mt-1 text-slate-50 tracking-wide">
               {item.label}
             </p>
             <p className="font-bold text-[7px] text-slate-100 capitalize">

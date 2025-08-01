@@ -3,16 +3,15 @@ import { CheckCheck, Loader2 } from "lucide-react";
 
 import { ApproveDriverProps } from "@/types";
 
-import useApproveDriver from "@/hooks/useAprroveDriver";
+import useApproveDriver from "@/hooks/useApproveDriver";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 function ApproveDriver({
-  isLoading,
   selectedDriverData,
   selectedItemId,
   isDriver,
 }: ApproveDriverProps) {
-  const { selectedRideData, setIsLoading } = useGlobalContext();
+  const { selectedRideData, isLoading, setIsLoading } = useGlobalContext();
 
   //approve driver handler
   const approveDriverHandler = useApproveDriver({
@@ -27,7 +26,7 @@ function ApproveDriver({
         <button
           onClick={approveDriverHandler}
           className={cn(
-            `flex items-center gap-1 w-18 h-[22px] bg-slate-200 text-[7px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
+            `flex items-center gap-1 h-[22px] bg-slate-200 text-[9px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
             isLoading && "pointer-events-none bg-slate-400 "
           )}
         >
@@ -35,9 +34,9 @@ function ApproveDriver({
             ? "Disapprove Driver"
             : "Approve Driver"}
           {isLoading ? (
-            <Loader2 className="size-2 animate-spin" />
+            <Loader2 className="size-3 animate-spin" />
           ) : (
-            <CheckCheck className="size-2" />
+            <CheckCheck className="size-3" />
           )}
         </button>
       )}

@@ -19,21 +19,21 @@ function BookedRideInfo({
         </p>
       </div>
       <div className="flex flex-col items-center h-14 gap-0.5 py-0.5 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
-        <p className="flex gap-1 items-center text-slate-100 text-[10px] font-medium">
+        <p className="flex gap-1 items-center text-slate-100 text-[8.5px] lg:text-[10px] font-medium">
           <PhoneCall className="size-2.5 stroke-slate-100" />
           Pick Up Location -{" "}
         </p>
-        <p className="text-slate-200 text-[9px]">
+        <p className="text-slate-200 text-[8.5px] lg:text-[9px] tracking-tight">
           {selectedRide?.pick_up_location} by{" "}
           <span>{selectedRide?.pick_up_time}</span>
         </p>
       </div>
       <div className="flex flex-col items-center h-14 gap-0.5 py-0.5 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
-        <p className="flex gap-1 items-center text-slate-100 text-[10px] font-medium">
+        <p className="flex gap-1 items-center text-slate-100 text-[8.5px] lg:text-[10px] font-medium">
           <Download className="size-2.5 stroke-slate-100" />
           Drop Off Location -{" "}
         </p>
-        <p className="text-slate-200 text-[9px]">
+        <p className="text-slate-200 text-[8.5px] lg:text-[9px] tracking-tight">
           {selectedRide?.drop_off_location} by{" "}
           <span>{selectedRide?.drop_off_time}</span>
         </p>

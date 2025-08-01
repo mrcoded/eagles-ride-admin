@@ -3,7 +3,7 @@ import { LucideIcon, PhoneCall, MailCheck } from "lucide-react";
 import { SelectedItemInfoProps } from "@/types";
 
 import BookedRideInfo from "./bookings/BookedRideInfo";
-import DriverInfo from "./modals/DriverInfoModal";
+import DriverInfoModal from "./modals/DriverInfoModal";
 import { selectedDriverInfo } from "../constants/selectedDriverInfo";
 
 function SelectedItemInfo({
@@ -22,13 +22,13 @@ function SelectedItemInfo({
         <h3 className="text-slate-100 text-[9px] font-medium">
           {user?.fullname ?? selectedDriver?.fullname} Information
         </h3>
-        <div className="flex items-center gap-2 py-1 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
+        <div className="flex items-center gap-2 py-0.5 lg:py-1 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
           <MailCheck className="size-3 stroke-slate-100" />
           <p className="text-slate-200 text-[9px] font-medium tracking-wide">
             {user?.email ?? selectedDriver?.email}
           </p>
         </div>
-        <div className="flex items-center gap-2 py-1 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
+        <div className="flex items-center gap-2 py-0.5 lg:py-1 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
           <PhoneCall className="size-3 stroke-slate-100" />
           <p className="text-slate-200 text-[9px] font-medium tracking-wide">
             {user?.phone_number ?? selectedDriver?.phone_number}
@@ -43,13 +43,7 @@ function SelectedItemInfo({
             : "Booked Ride Information"}
         </h3>
         {isDriver ? (
-          <>
-            {driverInfo.map(
-              (item: { label: string; icon: LucideIcon; value: string }) => (
-                <DriverInfo key={item.label} item={item} />
-              )
-            )}
-          </>
+          <DriverInfoModal driverInfo={driverInfo} />
         ) : (
           <BookedRideInfo
             childData={childData}
