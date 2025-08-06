@@ -3,6 +3,7 @@ import { CheckCheck, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 import { AssignDriverProps } from "@/types";
+import { useQuery } from "@tanstack/react-query";
 
 import UnAssignDriver from "./UnassignDriver";
 import DriverAssignSearch from "./DriverAssignSearch";
@@ -24,7 +25,16 @@ function AssignDriver({
   selectedItemId,
   selectedRideData,
 }: AssignDriverProps) {
-  const { query } = useGlobalContext();
+  const { query, driverId } = useGlobalContext();
+
+  const {
+    status,
+    data: { driver } = {},
+    error,
+    isFetching,
+  } = useQuery<{ driver: { fullname: string } }>({
+    queryKey: [`drivers/${driverId}`],
+  });
 
   //global context
   const { setIsOpen, isLoading, setIsLoading } = useGlobalContext();
@@ -60,7 +70,7 @@ function AssignDriver({
     <div className="block py-0 w-fit">
       {selectedRideData?.status === "assigned" && (
         <p className="text-[6px] pr-2 font-bold pt-1.5 pl-1.5 bg-orange-500 text-slate-200 rounded-s-sm">
-          Assigned to {selectedItemId}
+          Assigned to {driver?.fullname}
         </p>
       )}
 
@@ -68,10 +78,9 @@ function AssignDriver({
         <DialogTrigger
           onClick={() => {
             setIsOpen(true);
-            setIsLoading(true);
           }}
           className={cn(
-            `flex items-center gap-1 w-18 h-5 bg-slate-200 text-[7px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
+            `flex items-center gap-1 w-18 h-5 bg-slate-200 text-[8px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
             isLoading && "pointer-events-none bg-slate-400 "
           )}
         >
@@ -79,9 +88,9 @@ function AssignDriver({
             ? "Change Driver"
             : "Assign Driver"}
           {isLoading ? (
-            <Loader2 className="size-2 animate-spin" />
+            <Loader2 className="size-3 animate-spin" />
           ) : (
-            <CheckCheck className="size-2" />
+            <CheckCheck className="size-3" />
           )}
         </DialogTrigger>
         <DialogContent>

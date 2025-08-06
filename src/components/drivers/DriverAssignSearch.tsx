@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
@@ -20,24 +21,18 @@ function DriverAssignSearch({
   selectedRideData,
   assignDriverHandler,
 }: DriverAssignSearchProps) {
+  const [itemId, setItemId] = useState<string | null>(null);
+
   //Global context
-  const {
-    setDriverId,
-    selectedItemId,
-    setSelectedItemId,
-    setIsOpen,
-    query,
-    setQuery,
-  } = useGlobalContext();
+  const { setIsOpen, query, setQuery } = useGlobalContext();
 
   // Handle checkbox change
   const handleCheckboxChange = (checked: boolean, itemId: string) => {
     if (checked) {
       setIsOpen(true);
-      setDriverId(itemId);
-      setSelectedItemId(itemId);
+      setItemId(itemId);
     } else {
-      setSelectedItemId(null);
+      setItemId(null);
     }
   };
 
@@ -57,12 +52,16 @@ function DriverAssignSearch({
         <CommandEmpty>No driver found.</CommandEmpty>
         <CommandGroup heading="Drivers Suggestions">
           {filteredDrivers?.map((item: { _id: string; fullname: string }) => {
+            const selectedDriver = selectedDriverIds.includes(item._id);
+
             return (
               <CommandItem
                 key={item._id}
                 value={item.fullname}
-                className="cursor-pointer"
-                disabled={selectedItemId === item._id}
+                className={cn(
+                  "cursor-pointer",
+                  selectedDriver && "text-slate-400"
+                )}
               >
                 <Car />
                 <button
@@ -71,11 +70,9 @@ function DriverAssignSearch({
                   onClick={(e) => assignDriverHandler(e, item._id)}
                 >
                   {item.fullname}
-                  {selectedDriverIds.includes(item._id) && (
-                    <Check className={cn("ml-auto size-5")} />
-                  )}
+                  {selectedDriver && <Check className={cn("ml-auto size-5")} />}
                   <Checkbox
-                    checked={selectedItemId === item._id}
+                    checked={itemId === item._id}
                     onCheckedChange={(checked: boolean) =>
                       handleCheckboxChange(checked, item._id)
                     }
