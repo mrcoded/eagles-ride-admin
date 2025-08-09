@@ -67,7 +67,7 @@ const SmallCardData = ({
       icon: User2,
     },
     {
-      label: "Total Users",
+      label: "Total User",
       value: totalUsers,
       icon: Users,
     },
