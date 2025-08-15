@@ -1,16 +1,18 @@
 import { useGlobalContext } from "@/context/GlobalContext";
-import { Command, CommandInput } from "./ui/command";
+import { Input } from "./ui/input";
 
 function SearchInput({ title }: { title: string }) {
   const { setQuery } = useGlobalContext();
 
   return (
-    <Command className="flex justify-center rounded-lg border shadow-sm md:max-w-[250px] h-8">
-      <CommandInput
-        onValueChange={(val) => setQuery(val)}
+    <div className="flex justify-center rounded-lg border shadow-sm md:max-w-[350px]">
+      <Input
+        type="text"
+        onChange={(e) => setQuery(e.target.value)}
+        className="text-primary font-medium text-base focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1"
         placeholder={`Search a ${title}`}
       />
-    </Command>
+    </div>
   );
 }
 
