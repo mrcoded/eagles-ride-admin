@@ -24,7 +24,7 @@ function DriverAssignSearch({
   const [itemId, setItemId] = useState<string | null>(null);
 
   //Global context
-  const { setIsOpen, query, setQuery } = useGlobalContext();
+  const { isLoading, setIsOpen, query, setQuery } = useGlobalContext();
 
   // Handle checkbox change
   const handleCheckboxChange = (checked: boolean, itemId: string) => {
@@ -58,27 +58,28 @@ function DriverAssignSearch({
               <CommandItem
                 key={item._id}
                 value={item.fullname}
+                disabled={isLoading}
                 className={cn(
                   "cursor-pointer",
                   selectedDriver && "text-slate-400"
                 )}
               >
                 <Car />
-                <button
+                <div
                   key={item._id}
                   className="flex justify-between items-center w-full"
                   onClick={(e) => assignDriverHandler(e, item._id)}
                 >
                   {item.fullname}
                   {selectedDriver && <Check className={cn("ml-auto size-5")} />}
-                  <Checkbox
-                    checked={itemId === item._id}
-                    onCheckedChange={(checked: boolean) =>
-                      handleCheckboxChange(checked, item._id)
-                    }
-                    className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
-                  />
-                </button>
+                </div>
+                <Checkbox
+                  checked={itemId === item._id}
+                  onCheckedChange={(checked: boolean) =>
+                    handleCheckboxChange(checked, item._id)
+                  }
+                  className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
+                />
               </CommandItem>
             );
           })}
