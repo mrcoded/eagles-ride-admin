@@ -1,12 +1,12 @@
 import { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { DriversDataProps } from "@/types";
 
 import SearchInput from "@/components/SearchInput";
 import DataTable from "@/components/tables/DataTable";
 import { FilterItems } from "@/components/FilterItems";
 import DriverTableModal from "@/components/modals/DriverTableModal";
 
+import { DriversDataProps } from "@/types/drivers";
 import { useGlobalContext } from "@/context/GlobalContext";
 
 function Drivers() {
@@ -15,7 +15,6 @@ function Drivers() {
     useGlobalContext();
 
   const {
-    status,
     data: driversData,
     error,
     isFetching,
@@ -52,7 +51,6 @@ function Drivers() {
     return searchResult;
   }, [query, driversData]);
 
-  console.log(error, status);
   return (
     <>
       {error && <div className="text-red-500 text-4xl">Error</div>}
@@ -74,19 +72,10 @@ function Drivers() {
               isLoading={isFetching}
             />
           </div>
-
-          {/* Pagination */}
-          <div className="flex flex-grow bg-white shadow py-2.5 px-6 mt-auto">
-            <div className="text-xl font-bold">Pagination</div>
-          </div>
         </section>
 
         {/* Right Section */}
-        {isModalOpen && (
-          <section className="w-full md:w-[30%] flex flex-col gap-1">
-            <DriverTableModal drivers={filterDrivers} />
-          </section>
-        )}
+        {isModalOpen && <DriverTableModal drivers={filterDrivers} />}
       </div>
     </>
   );

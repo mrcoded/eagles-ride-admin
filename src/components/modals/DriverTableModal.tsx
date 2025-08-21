@@ -19,23 +19,25 @@ const DriverTableModal = ({ drivers }: BookingsModalProps) => {
     selectedDriverData && "isDriverApproved" in selectedDriverData!;
 
   return (
-    <div className="flex flex-col items-center justify-center py-3 flex-1 h-screen bg-orange-400 dark:bg-orange-800 rounded-t-2xl shadow space-y-3.5">
-      <SelectedUserAvatar data={selectedDriverData} />
+    <aside className="w-full md:w-[30%] flex flex-col gap-1">
+      <div className="flex flex-col items-center justify-center py-3 flex-1 h-screen bg-orange-400 dark:bg-orange-800 rounded-t-2xl shadow space-y-3.5">
+        <SelectedUserAvatar data={selectedDriverData} />
 
-      {/* Selected Item Card */}
-      <SelectedItemCard selectedItemData={selectedDriverData} />
+        {/* Selected Item Card */}
+        <SelectedItemCard selectedItemData={selectedDriverData} />
 
-      <ApproveDriver
-        isDriver={isDriver}
-        selectedItemId={selectedItemId}
-        selectedDriverData={selectedDriverData}
-      />
+        <ApproveDriver
+          isDriver={isDriver}
+          selectedItemId={selectedItemId}
+          selectedDriverData={selectedDriverData}
+        />
 
-      <SelectedItemInfo
-        isDriver={isDriver}
-        selectedDriver={selectedDriverData}
-      />
-    </div>
+        <SelectedItemInfo
+          isDriver={isDriver}
+          selectedDriver={selectedDriverData}
+        />
+      </div>
+    </aside>
   );
 };
 
