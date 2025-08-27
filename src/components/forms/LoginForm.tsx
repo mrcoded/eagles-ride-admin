@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { FieldValues } from "react-hook-form";
+
+import useLogin from "@/hooks/useLogin";
+import { useAuthContext } from "@/hooks/useAuthContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import {
   Card,
@@ -12,58 +16,19 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-import toast from "react-hot-toast";
-import { useAPIMutation } from "../../hooks/useAPIMutation";
-
 export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const { isLoading } = useGlobalContext();
+  const { formData, setFormData } = useAuthContext();
 
-  // Use the useAPImutation hook for logging in
-  const mutation = useAPIMutation({
-    endpoint: "admin/login",
-    method: "POST",
-    onMutate: () => {
-      console.log("Starting login request...");
-      setIsLoading(true);
-    },
-    onSuccess: (data) => {
-      setIsLoading(false);
-      console.log(data);
-      toast.success("Login Success! Signing In...");
-    },
-    onError: (error) => {
-      setIsLoading(false);
-      toast.error(error.message);
-    },
-  });
-  //`
-  const onchangeHandler = async (e: any) => {
+  //Submit handler
+  const onSubmit = useLogin(formData);
+
+  //Input onChange Handler
+  const onchangeHandler = async (e: FieldValues) => {
     setFormData((prevData) => ({
-      ...prevData, // Keep previous state
-      [e.target.name]: e.target.value, // Update changed field
+      ...prevData,
+      [e.target.name]: e.target.value,
     }));
-  };
-
-  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    try {
-      e.preventDefault();
-
-      if (!formData.email || !formData.password) return;
-
-      const data = {
-        email: formData.email,
-        password: formData.password,
-      };
-
-      //Invoke mutation
-      mutation.mutateAsync(data);
-    } catch (error) {
-      console.log(error);
-    }
   };
 
   return (
@@ -101,7 +66,7 @@ export function LoginForm() {
               <Checkbox id="remember" />
               <Label htmlFor="remember">Remember me</Label>
             </div>
-            <Button type="submit" isLoading={mutation.isPending}>
+            <Button type="submit" isLoading={isLoading}>
               Login
             </Button>
           </div>
