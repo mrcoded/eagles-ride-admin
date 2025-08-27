@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { BookingsDataProps, BookingsTableProps } from "@/types/bookings";
 
 import DataTable from "@/components/tables/DataTable";
@@ -55,9 +55,13 @@ function RideBookings() {
           <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
             Search not found!
           </div>
+        ) : !filteredBookings ? (
+          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
+            Searchs not found!
+          </div>
         ) : (
           <DataTable
-            data={paginationData}
+            data={filteredBookings}
             type="booking"
             isLoading={isFetching}
           />

@@ -7,7 +7,7 @@ import { FilterItems } from "@/components/FilterItems";
 import DriverTableModal from "@/components/modals/DriverTableModal";
 
 import { DriversDataProps } from "@/types/drivers";
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Drivers() {
   //Get global context
