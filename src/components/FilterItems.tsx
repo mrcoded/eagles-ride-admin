@@ -4,6 +4,8 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Check, ChevronsUpDown, X } from "lucide-react";
 
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+
 import { Button } from "@/components/ui/button";
 import { bookingFilters, driverFilters } from "../constants/filterItems";
 
@@ -19,7 +21,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { useGlobalContext } from "@/context/GlobalContext";
 
 export function FilterItems({ title }: { title: string }) {
   const [open, setOpen] = useState(false);

@@ -1,9 +1,7 @@
 import { useMemo, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 
-import SearchInput from "@/components/SearchInput";
 import DataTable from "@/components/tables/DataTable";
-import { FilterItems } from "@/components/FilterItems";
 import DriverTableModal from "@/components/modals/DriverTableModal";
 
 import { DriversDataProps } from "@/types/drivers";
@@ -11,8 +9,13 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Drivers() {
   //Get global context
-  const { query, selectedItemId, setSelectedRideData, isModalOpen } =
-    useGlobalContext();
+  const {
+    query,
+    selectedItemId,
+    setToolbarTitle,
+    setSelectedRideData,
+    isModalOpen,
+  } = useGlobalContext();
 
   const {
     data: driversData,
@@ -21,6 +24,11 @@ function Drivers() {
   } = useQuery<DriversDataProps[]>({
     queryKey: ["drivers"],
   });
+
+  //Set toolbar title
+  useEffect(() => {
+    setToolbarTitle("Driver");
+  }, [setToolbarTitle]);
 
   //Get selected item data
   const selectedRideData = driversData?.filter(
@@ -56,14 +64,6 @@ function Drivers() {
       {error && <div className="text-red-500 text-4xl">Error</div>}
       <div className="inline-flex gap-3 w-full">
         <section className="w-full flex flex-col flex-1 justify-between">
-          {/* nav */}
-          <nav className="flex justify-between items-center gap-2 mb-5">
-            <SearchInput title="Driver" />
-            <div className="text-slate-200 text-[9px] font-medium">
-              <FilterItems title="Drivers" />
-            </div>
-          </nav>
-
           {/*Drivers Table*/}
           <div className="overflow-x-auto">
             <DataTable

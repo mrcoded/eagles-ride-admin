@@ -1,4 +1,4 @@
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Pagination({ totalPages }: { totalPages: number }) {
   const { currentPage, setCurrentPage } = useGlobalContext();

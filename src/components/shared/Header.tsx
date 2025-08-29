@@ -2,13 +2,13 @@ import SearchInput from "../SearchInput";
 import { FilterItems } from "../FilterItems";
 
 import { Menu, Settings, UserCircle2 } from "lucide-react";
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Header() {
   const { sidebarOpen, setSidebarOpen, toolbarTitle } = useGlobalContext();
 
   return (
-    <header className="sticky top-0 z-40 flex h-12 lg:h-16 items-center justify-between px-4 lg:px-6 gap-2 bg-white border-b space-x-5">
+    <header className="sticky top-0 z-40 flex h-16 lg:h-16 items-center justify-between px-4 lg:px-6 gap-2 bg-white border-b space-x-5">
       {!sidebarOpen && (
         <Menu
           onClick={() => setSidebarOpen(!sidebarOpen)}

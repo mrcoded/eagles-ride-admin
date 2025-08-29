@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
 import { DriverAssignSearchProps } from "@/types";
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import {
   Command,

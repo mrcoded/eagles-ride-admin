@@ -2,7 +2,6 @@ import { FieldValues } from "react-hook-form";
 
 import useLogin from "@/hooks/useLogin";
 import { useAuthContext } from "@/hooks/useAuthContext";
-import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import {
   Card,
@@ -17,11 +16,15 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
 export function LoginForm() {
-  const { isLoading } = useGlobalContext();
   const { formData, setFormData } = useAuthContext();
 
+  const { loginHandler, isLoading } = useLogin(formData);
+
   //Submit handler
-  const onSubmit = useLogin(formData);
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    loginHandler();
+  };
 
   //Input onChange Handler
   const onchangeHandler = async (e: FieldValues) => {
@@ -32,7 +35,7 @@ export function LoginForm() {
   };
 
   return (
-    <Card className="max-w-[350px]">
+    <Card className="w-full max-w-[400px]">
       <CardHeader>
         <CardTitle>Welcome Back ADMIN</CardTitle>
         <CardDescription>Login with your credentials below.</CardDescription>
@@ -67,7 +70,7 @@ export function LoginForm() {
               <Label htmlFor="remember">Remember me</Label>
             </div>
             <Button type="submit" isLoading={isLoading}>
-              Login
+              {isLoading ? "Logging in..." : "Login"}
             </Button>
           </div>
         </form>

@@ -1,4 +1,5 @@
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+
 import { Input } from "./ui/input";
 
 function SearchInput({ title }: { title: string }) {

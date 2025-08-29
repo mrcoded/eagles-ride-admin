@@ -8,12 +8,12 @@ import {
 
 export const navigationItems = [
   {
-    path: "/",
+    path: "/dashboard",
     icon: LayoutDashboard,
     label: "Dashboard",
   },
   {
-    path: "/units",
+    path: "/drivers",
     icon: Car,
     label: "Drivers",
   },

@@ -36,7 +36,7 @@ export function useAPIMutation(options: UseAPIMutationOptions) {
         onSuccess(data);
       }
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       if (onError) {
         onError(error);
       }

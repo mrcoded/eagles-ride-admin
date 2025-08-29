@@ -1,5 +1,5 @@
 import { BookingsModalProps } from "@/types";
-import { useGlobalContext } from "@/context/GlobalContext";
+import {useGlobalContext} from "@/hooks/useGlobalContext";
 
 import SelectedItemInfo from "../SelectedItemInfo";
 import SelectedItemCard from "../SelectedItemCard";

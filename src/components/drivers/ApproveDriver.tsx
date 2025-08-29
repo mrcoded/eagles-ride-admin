@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { CheckCheck, Loader2 } from "lucide-react";
 
-import { ApproveDriverProps } from "@/types";
+import { ApproveDriverProps } from "@/types/drivers";
 
 import useApproveDriver from "@/hooks/useApproveDriver";
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function ApproveDriver({
   selectedDriverData,

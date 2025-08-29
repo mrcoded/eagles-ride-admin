@@ -1,37 +1,35 @@
+import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "./useAuthContext";
+
 import toast from "react-hot-toast";
 
 import { LoginAuthProps } from "@/types/auth";
 import { useAPIMutation } from "./useAPIMutation";
 
-import { useGlobalContext } from "./useGlobalContext";
-
 const useLogin = (formData: LoginAuthProps) => {
-  const { setIsLoading } = useGlobalContext();
+  const navigate = useNavigate();
+  const { login } = useAuthContext();
 
   // Use the useAPImutation hook for logging in
   const mutation = useAPIMutation({
     endpoint: "admin/login",
     method: "POST",
-    onMutate: () => {
-      // console.log("Starting login request...");
-      setIsLoading(true);
-    },
     onSuccess: (data) => {
-      setIsLoading(false);
       console.log(data);
       toast.success("Login Success! Redirecting...");
+      //pass token to auth context
+      login(data.token);
+      //Redirect
+      navigate("/dashboard");
     },
     onError: (error) => {
-      setIsLoading(false);
       toast.error(error.message);
     },
   });
 
-  //approve driver function
-  return async () => {
+  //login handler
+  const loginHandler = async () => {
     try {
-      setIsLoading(true);
-
       if (!formData.email || !formData.password) return;
 
       const data = {
@@ -45,6 +43,8 @@ const useLogin = (formData: LoginAuthProps) => {
       console.log(error);
     }
   };
+
+  return { loginHandler, isLoading: mutation.status === "pending" };
 };
 
 export default useLogin;

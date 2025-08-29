@@ -9,7 +9,7 @@ import {
 
 import { AssignDriverProps } from "@/types";
 import useUnAssignDriver from "@/hooks/useUnassignDriver";
-import { useGlobalContext } from "@/context/GlobalContext";
+import {useGlobalContext} from "@/hooks/useGlobalContext";
 
 function UnAssignDriver({
   selectedItemId,
