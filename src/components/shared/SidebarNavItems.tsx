@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LogOut } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { navigationItems } from "@/constants/sidebarNavLinks";
 import { ToggleTheme } from "../ToggleTheme";
 
 function SidebarNavItems() {
+  const urlPath = useLocation();
+  const { pathname } = urlPath;
+
   return (
     <>
-      <div className="flex h-14 items-center mb-6 px-4 dark:bg-slate-50 border-b">
+      <div className="h-16 items-center mb-6 p-4 dark:bg-slate-50 border-b">
         <img
           src="/react.svg"
           alt="Nyetir.io Logo"
@@ -17,19 +21,28 @@ function SidebarNavItems() {
       </div>
       <nav className="flex-1 p-4">
         <ul className="space-y-3.5">
-          {navigationItems.map((item) => (
-            <li key={item.label}>
-              <Link
-                to={item.path}
-                className="flex items-center py-2 px-3 text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors"
-              >
-                <span className="size-5">
-                  <item.icon className="size-4" />
-                </span>
-                <span className="ml-3 font-medium text-sm">{item.label}</span>
-              </Link>
-            </li>
-          ))}
+          {navigationItems.map((item) => {
+            const isActive = pathname === item.path;
+
+            return (
+              <li key={item.label}>
+                <Link
+                  to={item.path}
+                  className={cn(
+                    isActive
+                      ? "bg-gray-200 dark:bg-gray-700 text-primary"
+                      : "text-slate-800",
+                    "flex items-center py-2 px-3 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors"
+                  )}
+                >
+                  <span className="size-5">
+                    <item.icon className="size-4" />
+                  </span>
+                  <span className="ml-3 font-medium text-sm">{item.label}</span>
+                </Link>
+              </li>
+            );
+          })}
         </ul>
       </nav>
       <div className="flex items-center w-full mt-14 p-4">
