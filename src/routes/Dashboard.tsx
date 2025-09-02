@@ -1,5 +1,4 @@
-import LargeCard from "@/components/cards/LargeCard";
-import SmallCard from "@/components/cards/SmallCard";
+import { LargeCard, SmallCard } from "@/components/dashboard/DashboardCards";
 
 function Dashboard() {
   return (

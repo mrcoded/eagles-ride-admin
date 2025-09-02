@@ -1,28 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-
-import { UserProps } from "@/types/index";
-import { DriversDataProps } from "@/types/drivers";
-import { BookingsDataProps } from "@/types/bookings";
+import { DriverService } from "@/services/driverService";
+import { BookingService } from "@/services/bookingService";
 
 import { LargeCardData, SmallCardData } from "@/utils/dashboardCardData";
+import { UserService } from "@/services/userService";
 
 export const useDashboardStats = () => {
   //Get all rides
-  const { data: { rides } = { rides: [] } } = useQuery<{
-    rides: BookingsDataProps["rides"][];
-  }>({
-    queryKey: ["book/all-rides"],
-  });
+  const { rides } = BookingService();
 
   //Get all drivers
-  const { data: driversData = [] } = useQuery<DriversDataProps[]>({
-    queryKey: ["drivers"],
-  });
+  const { driversData } = DriverService();
 
   //Get all users
-  const { data: userData = [] } = useQuery<UserProps[]>({
-    queryKey: ["users"],
-  });
+  const { usersData } = UserService();
 
   //Calculate stats
   const stats = {
@@ -44,7 +34,7 @@ export const useDashboardStats = () => {
       ).length ?? 0,
     totalRides: rides?.length ?? 0,
     totalDrivers: driversData?.length ?? 0,
-    totalUsers: userData?.length ?? 0,
+    totalUsers: usersData?.length ?? 0,
   };
 
   return {

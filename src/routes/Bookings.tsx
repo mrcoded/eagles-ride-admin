@@ -1,26 +1,21 @@
 import { useEffect, useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
 
 import { useGlobalContext } from "@/hooks/useGlobalContext";
-import { BookingsDataProps, BookingsTableProps } from "@/types/bookings";
+
+import { DriverService } from "@/services/driverService";
+import { BookingService } from "@/services/bookingService";
 
 import DataTable from "@/components/tables/DataTable";
 import RideTableModal from "@/components/modals/RideTableModal";
 
 function RideBookings() {
-  const { data: { rides } = { rides: [] }, isFetching } = useQuery<{
-    rides: BookingsDataProps["rides"][];
-  }>({
-    queryKey: ["book/all-rides"],
-  });
+  const { query, isModalOpen, setToolbarTitle } = useGlobalContext();
+
+  //Get all rides
+  const { rides, ridesFetching } = BookingService();
 
   //Get all drivers
-  const { data: driversData } = useQuery<BookingsTableProps["drivers"]>({
-    queryKey: ["drivers"],
-  });
-
-  const { query, isModalOpen, paginationData, setToolbarTitle } =
-    useGlobalContext();
+  const { driversData } = DriverService();
 
   //Set toolbar title
   useEffect(() => {
@@ -63,7 +58,7 @@ function RideBookings() {
           <DataTable
             data={filteredBookings}
             type="booking"
-            isLoading={isFetching}
+            isLoading={ridesFetching}
           />
         )}
       </section>

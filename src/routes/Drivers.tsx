@@ -1,11 +1,10 @@
 import { useMemo, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+
+import { DriverService } from "@/services/driverService";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import DataTable from "@/components/tables/DataTable";
 import DriverTableModal from "@/components/modals/DriverTableModal";
-
-import { DriversDataProps } from "@/types/drivers";
-import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Drivers() {
   //Get global context
@@ -17,13 +16,8 @@ function Drivers() {
     isModalOpen,
   } = useGlobalContext();
 
-  const {
-    data: driversData,
-    error,
-    isFetching,
-  } = useQuery<DriversDataProps[]>({
-    queryKey: ["drivers"],
-  });
+  //Get all drivers
+  const { driversData, driversFetching, driversError } = DriverService();
 
   //Set toolbar title
   useEffect(() => {
@@ -61,7 +55,7 @@ function Drivers() {
 
   return (
     <>
-      {error && <div className="text-red-500 text-4xl">Error</div>}
+      {driversError && <div className="text-red-500 text-4xl">Error</div>}
       <div className="inline-flex gap-3 w-full">
         <section className="w-full flex flex-col flex-1 justify-between">
           {/*Drivers Table*/}
@@ -69,7 +63,7 @@ function Drivers() {
             <DataTable
               data={filterDrivers}
               type="driver"
-              isLoading={isFetching}
+              isLoading={driversFetching}
             />
           </div>
         </section>
