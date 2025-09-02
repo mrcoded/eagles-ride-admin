@@ -8,7 +8,7 @@ function Header() {
   const { sidebarOpen, setSidebarOpen, toolbarTitle } = useGlobalContext();
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 lg:h-16 items-center justify-between px-4 lg:px-6 gap-2 bg-white border-b space-x-5">
+    <header className="sticky top-0 z-40 flex h-16 items-center justify-between px-4 lg:px-6 gap-2 bg-white border-b space-x-5">
       {!sidebarOpen && (
         <Menu
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -17,12 +17,14 @@ function Header() {
       )}
 
       {/* toolbar */}
-      <div className="flex justify-between items-center gap-2 flex-grow">
-        <SearchInput title={toolbarTitle} />
-        <div className="text-slate-200 text-[9px] font-medium">
-          <FilterItems title={toolbarTitle} />
+      {toolbarTitle && (
+        <div className="flex justify-between items-center gap-2 flex-grow">
+          <SearchInput title={toolbarTitle} />
+          <div className="text-slate-200 text-[9px] font-medium">
+            <FilterItems title={toolbarTitle} />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className="flex items-center justify-end gap-2.5">
         <Settings className="size-6" />

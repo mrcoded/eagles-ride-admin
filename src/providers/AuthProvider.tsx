@@ -4,7 +4,9 @@ import AuthContext from "@/context/AuthContext";
 import { AuthContextType } from "@/types/context";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [token, setToken] = useState<string | null>(null);
+  const storedToken = localStorage.getItem("token");
+  const [token, setToken] = useState(storedToken || null);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -13,7 +15,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Load token from localStorage on mount
     const storedToken = localStorage.getItem("token");
-    if (storedToken) {
+    if (storedToken && token !== storedToken) {
       setToken(storedToken);
     }
   }, [token]);

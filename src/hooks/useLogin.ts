@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import { LoginAuthProps } from "@/types/auth";
 import { useAPIMutation } from "./useAPIMutation";
 
-const useLogin = (formData: LoginAuthProps) => {
+const useLogin = () => {
   const navigate = useNavigate();
   const { login } = useAuthContext();
 
@@ -15,8 +15,7 @@ const useLogin = (formData: LoginAuthProps) => {
     endpoint: "admin/login",
     method: "POST",
     onSuccess: (data) => {
-      console.log(data);
-      toast.success("Login Success! Redirecting...");
+      toast.success("Login Success...");
       //pass token to auth context
       login(data.token);
       //Redirect
@@ -28,7 +27,7 @@ const useLogin = (formData: LoginAuthProps) => {
   });
 
   //login handler
-  const loginHandler = async () => {
+  const loginHandler = async (formData: LoginAuthProps) => {
     try {
       if (!formData.email || !formData.password) return;
 

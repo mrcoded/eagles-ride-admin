@@ -18,12 +18,12 @@ import { Checkbox } from "../ui/checkbox";
 export function LoginForm() {
   const { formData, setFormData } = useAuthContext();
 
-  const { loginHandler, isLoading } = useLogin(formData);
+  const { loginHandler, isLoading } = useLogin();
 
   //Submit handler
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginHandler();
+    loginHandler(formData);
   };
 
   //Input onChange Handler
