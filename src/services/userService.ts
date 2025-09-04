@@ -4,7 +4,14 @@ import { useApiRequest } from "@/hooks/useApiRequest";
 
 import { UserProps } from "@/types";
 
-export const UserService = (selectedUserId?: string) => {
+export const UserService = (
+  selectedUserId?: string,
+  selectedRideData?: {
+    child: {
+      _id: string;
+    };
+  }
+) => {
   const { makeAPIRequest } = useApiRequest();
 
   //Get selected user
@@ -14,7 +21,7 @@ export const UserService = (selectedUserId?: string) => {
     queryKey: [`users/${selectedUserId}`],
     queryFn: () =>
       makeAPIRequest({
-        endpoint: `/users/${selectedUserId}`,
+        endpoint: `users/${selectedUserId}`,
         method: "GET",
       }),
     enabled: !!selectedUserId,
@@ -25,10 +32,27 @@ export const UserService = (selectedUserId?: string) => {
     queryKey: ["users"],
     queryFn: () =>
       makeAPIRequest({
-        endpoint: `/users`,
+        endpoint: `users`,
         method: "GET",
       }),
   });
 
-  return { user, userFetching, usersData };
+  //Get user child
+  const { data: childData, error: childError } = useQuery<UserProps>({
+    queryKey: [`users/child/${selectedRideData?.child?._id}`],
+    queryFn: () =>
+      makeAPIRequest({
+        endpoint: `users/child/${selectedRideData?.child?._id}`,
+        method: "GET",
+      }),
+    enabled: !!selectedRideData,
+  });
+
+  return {
+    user,
+    userFetching,
+    usersData,
+    childData,
+    childError,
+  };
 };

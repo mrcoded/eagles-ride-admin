@@ -4,7 +4,7 @@ import { useApiRequest } from "@/hooks/useApiRequest";
 
 import { DriversDataProps } from "@/types/drivers";
 
-export const DriverService = () => {
+export const DriverService = (driverId?: string) => {
   const { makeAPIRequest } = useApiRequest();
 
   const {
@@ -15,10 +15,28 @@ export const DriverService = () => {
     queryKey: ["drivers"],
     queryFn: () =>
       makeAPIRequest({
-        endpoint: "/drivers",
+        endpoint: "drivers",
         method: "GET",
       }),
   });
 
-  return { driversData, driversFetching, driversError };
+  const { data: { driver } = {}, isFetching: driverFetching } = useQuery<{
+    driver: { fullname: string };
+  }>({
+    queryKey: [`drivers/${driverId}`],
+    queryFn: () =>
+      makeAPIRequest({
+        endpoint: `drivers/${driverId}`,
+        method: "GET",
+      }),
+    enabled: !!driverId,
+  });
+
+  return {
+    driversData,
+    driversFetching,
+    driversError,
+    driver,
+    driverFetching,
+  };
 };
