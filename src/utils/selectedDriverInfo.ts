@@ -1,7 +1,9 @@
 import { DriversDataProps } from "@/types/drivers";
 import { Car, Download, NotebookPen, PhoneCall, User2 } from "lucide-react";
 
-export const selectedDriverInfo = (selectedDriver: DriversDataProps) => {
+export const selectedDriverInfo = (
+  selectedDriver: DriversDataProps | undefined
+) => {
   return [
     {
       label: "Car Insurance",

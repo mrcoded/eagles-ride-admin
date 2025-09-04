@@ -18,8 +18,8 @@ function AssignDriver() {
     (data: { isDriverApproved?: boolean }) => data.isDriverApproved
   );
 
-  // Filtered list based on search query
-  const filteredDrivers = useMemo(() => {
+  // show only approved drivers
+  const approvedDriversList = useMemo(() => {
     const querySearch = query.trim().toLowerCase();
 
     if (!querySearch) return approvedDrivers;
@@ -41,7 +41,7 @@ function AssignDriver() {
         </p>
       )}
 
-      <AssignDriverAction drivers={filteredDrivers} />
+      <AssignDriverAction drivers={approvedDriversList} />
     </div>
   );
 }

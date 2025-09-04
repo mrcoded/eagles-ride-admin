@@ -14,7 +14,7 @@ export const BookingService = () => {
       queryKey: ["book/all-rides"],
       queryFn: () =>
         makeAPIRequest({
-          endpoint: "/book/all-rides",
+          endpoint: "book/all-rides",
           method: "GET",
         }),
     });

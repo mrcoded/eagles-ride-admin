@@ -60,7 +60,7 @@ function AssignDriverAction({
           </DialogDescription>
         </DialogHeader>
         <div>
-          <DriverAssignSearch filteredDrivers={drivers} />
+          <DriverAssignSearch approvedDrivers={drivers} />
         </div>
       </DialogContent>
     </Dialog>

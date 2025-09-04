@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
-import { DriverAssignSearchProps } from "@/types/bookings";
+import { DriversDataProps } from "@/types/drivers";
 
 import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
@@ -19,13 +19,17 @@ import {
 import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-function DriverAssignSearch({ filteredDrivers }: DriverAssignSearchProps) {
+function DriverAssignSearch({
+  approvedDrivers,
+}: {
+  approvedDrivers: DriversDataProps[] | undefined;
+}) {
   const [itemId, setItemId] = useState<string | null>(null);
 
   //Global context
   const { setIsOpen, query, setQuery, selectedRideData } = useGlobalContext();
 
-  //assign driver(s) to ride
+  //assign driver(s) handler
   const { isLoading, assignDriverHandler } = useAssignDriver();
 
   // Handle checkbox change
@@ -53,7 +57,7 @@ function DriverAssignSearch({ filteredDrivers }: DriverAssignSearchProps) {
       <CommandList>
         <CommandEmpty>No driver found.</CommandEmpty>
         <CommandGroup heading="Drivers Suggestions">
-          {filteredDrivers?.map((item: { _id: string; fullname: string }) => {
+          {approvedDrivers?.map((item: { _id: string; fullname: string }) => {
             //Check if driver is selected
             const selectedDriver = selectedDriverIds.includes(item._id);
 
