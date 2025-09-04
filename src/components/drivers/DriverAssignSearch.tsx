@@ -2,7 +2,9 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
-import { DriverAssignSearchProps } from "@/types";
+import { DriverAssignSearchProps } from "@/types/bookings";
+
+import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import {
@@ -14,17 +16,17 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
-function DriverAssignSearch({
-  filteredDrivers,
-  selectedRideData,
-  assignDriverHandler,
-}: DriverAssignSearchProps) {
+function DriverAssignSearch({ filteredDrivers }: DriverAssignSearchProps) {
   const [itemId, setItemId] = useState<string | null>(null);
 
   //Global context
-  const { isLoading, setIsOpen, query, setQuery } = useGlobalContext();
+  const { setIsOpen, query, setQuery, selectedRideData } = useGlobalContext();
+
+  //assign driver(s) to ride
+  const { isLoading, assignDriverHandler } = useAssignDriver();
 
   // Handle checkbox change
   const handleCheckboxChange = (checked: boolean, itemId: string) => {
@@ -52,7 +54,14 @@ function DriverAssignSearch({
         <CommandEmpty>No driver found.</CommandEmpty>
         <CommandGroup heading="Drivers Suggestions">
           {filteredDrivers?.map((item: { _id: string; fullname: string }) => {
+            //Check if driver is selected
             const selectedDriver = selectedDriverIds.includes(item._id);
+
+            //Assign driver
+            const assignDriver = (e: React.MouseEvent<HTMLButtonElement>) => {
+              e.preventDefault();
+              assignDriverHandler(item._id);
+            };
 
             return (
               <CommandItem
@@ -65,14 +74,15 @@ function DriverAssignSearch({
                 )}
               >
                 <Car />
-                <div
+                <Button
+                  variant="link"
                   key={item._id}
                   className="flex justify-between items-center w-full"
-                  onClick={(e) => assignDriverHandler(e, item._id)}
+                  onClick={assignDriver}
                 >
                   {item.fullname}
                   {selectedDriver && <Check className={cn("ml-auto size-5")} />}
-                </div>
+                </Button>
                 <Checkbox
                   checked={itemId === item._id}
                   onCheckedChange={(checked: boolean) =>

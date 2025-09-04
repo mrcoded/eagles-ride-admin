@@ -7,23 +7,23 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { AssignDriverProps } from "@/types";
 import useUnAssignDriver from "@/hooks/useUnassignDriver";
-import {useGlobalContext} from "@/hooks/useGlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-function UnAssignDriver({
-  selectedItemId,
-  selectedRideData,
-}: AssignDriverProps) {
+function UnAssignDriver() {
   //get driver id from global context
-  const { driverId, isOpen, setIsOpen, setIsLoading } = useGlobalContext();
+  const { driverId, isOpen, setIsOpen } = useGlobalContext();
 
   //unassign driver to ride
-  const unAssignDriverHandler = useUnAssignDriver({
-    selectedItemId,
-    selectedRideData,
-    setIsLoading,
-  });
+  const { unassignDriverHandler } = useUnAssignDriver();
+
+  //UnAssign driver Function
+  const unAssignDriver = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    setIsOpen(false);
+
+    unassignDriverHandler(driverId);
+  };
 
   return (
     <>
@@ -43,10 +43,7 @@ function UnAssignDriver({
             </DialogHeader>
             <div className="inline-flex justify-between">
               <button
-                onClick={(e) => {
-                  setIsOpen(false);
-                  unAssignDriverHandler(e, driverId);
-                }}
+                onClick={unAssignDriver}
                 className="bg-green-500 text-slate-200 rounded-sm py-1.5 px-2 text-sm"
               >
                 Confirm

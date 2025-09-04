@@ -1,11 +1,17 @@
-import { SelectedItemInfoProps } from "@/types";
 import { Download, PhoneCall, User2 } from "lucide-react";
 
-function BookedRideInfo({
-  selectedRide,
-  childData,
-  childError,
-}: SelectedItemInfoProps) {
+import { UserService } from "@/services/userService";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+
+function BookedRideInfo() {
+  const { selectedUserId, selectedRideData } = useGlobalContext();
+
+  // GET child data
+  const { childData, childError } = UserService(
+    selectedUserId,
+    selectedRideData
+  );
+
   return (
     <>
       <div className="flex items-center gap-2 py-1 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
@@ -24,8 +30,8 @@ function BookedRideInfo({
           Pick Up Location -{" "}
         </p>
         <p className="text-slate-200 text-[8.5px] lg:text-[9px] tracking-tight">
-          {selectedRide?.pick_up_location} by{" "}
-          <span>{selectedRide?.pick_up_time}</span>
+          {selectedRideData?.pick_up_location} by{" "}
+          <span>{selectedRideData?.pick_up_time}</span>
         </p>
       </div>
       <div className="flex flex-col items-center h-14 gap-0.5 py-0.5 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
@@ -34,8 +40,8 @@ function BookedRideInfo({
           Drop Off Location -{" "}
         </p>
         <p className="text-slate-200 text-[8.5px] lg:text-[9px] tracking-tight">
-          {selectedRide?.drop_off_location} by{" "}
-          <span>{selectedRide?.drop_off_time}</span>
+          {selectedRideData?.drop_off_location} by{" "}
+          <span>{selectedRideData?.drop_off_time}</span>
         </p>
       </div>
     </>

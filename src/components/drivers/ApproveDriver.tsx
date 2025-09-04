@@ -1,24 +1,14 @@
-import { cn } from "@/lib/utils";
 import { CheckCheck, Loader2 } from "lucide-react";
-
-import { ApproveDriverProps } from "@/types/drivers";
+import { cn } from "@/lib/utils";
 
 import useApproveDriver from "@/hooks/useApproveDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-function ApproveDriver({
-  selectedDriverData,
-  selectedItemId,
-  isDriver,
-}: ApproveDriverProps) {
-  const { selectedRideData, isLoading, setIsLoading } = useGlobalContext();
+function ApproveDriver({ isDriver }: { isDriver: boolean | undefined }) {
+  const { selectedDriverData } = useGlobalContext();
 
   //approve driver handler
-  const approveDriverHandler = useApproveDriver({
-    selectedItemId,
-    selectedRideData,
-    setIsLoading,
-  });
+  const { isLoading, approveDriverHandler } = useApproveDriver();
 
   return (
     <div className="flex py-2">

@@ -2,25 +2,22 @@ import { useEffect, useMemo } from "react";
 
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-import { DriverService } from "@/services/driverService";
 import { BookingService } from "@/services/bookingService";
 
 import DataTable from "@/components/tables/DataTable";
 import RideTableModal from "@/components/modals/RideTableModal";
 
 function RideBookings() {
-  const { query, isModalOpen, setToolbarTitle } = useGlobalContext();
+  const {
+    query,
+    isModalOpen,
+    selectedItemId,
+    setToolbarTitle,
+    setSelectedRideData,
+  } = useGlobalContext();
 
   //Get all rides
   const { rides, ridesFetching } = BookingService();
-
-  //Get all drivers
-  const { driversData } = DriverService();
-
-  //Set toolbar title
-  useEffect(() => {
-    setToolbarTitle("Booking");
-  }, [setToolbarTitle]);
 
   // Filtered bookings based on search query
   const filteredBookings = useMemo(() => {
@@ -41,6 +38,17 @@ function RideBookings() {
 
     return searchResult;
   }, [query, rides]);
+
+  //Get selected ride data
+  const selectedRideData = filteredBookings?.filter(
+    (data: { _id: string }) => data._id === selectedItemId
+  )[0];
+
+  //Set toolbar title and selected ride data
+  useEffect(() => {
+    setToolbarTitle("Booking");
+    setSelectedRideData(selectedRideData);
+  }, [selectedRideData, setToolbarTitle, setSelectedRideData]);
 
   return (
     <div className="inline-flex gap-3 w-full">
@@ -64,9 +72,7 @@ function RideBookings() {
       </section>
 
       {/* Modal Section */}
-      {isModalOpen && (
-        <RideTableModal drivers={driversData} bookings={filteredBookings} />
-      )}
+      {isModalOpen && <RideTableModal />}
     </div>
   );
 }

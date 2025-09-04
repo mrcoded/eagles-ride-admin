@@ -1,15 +1,14 @@
-import { MouseEvent } from "react";
 import toast from "react-hot-toast";
 
 import { useAPIMutation } from "./useAPIMutation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGlobalContext } from "./useGlobalContext";
 
-const useApproveDriver = ({
-  selectedItemId,
-  selectedRideData,
-  setIsLoading,
-}: any) => {
+const useApproveDriver = () => {
   const queryClient = useQueryClient();
+
+  //GET data from global context
+  const { selectedItemId, selectedRideData } = useGlobalContext();
 
   // Use the useAPImutation hook for approving driver
   const mutation = useAPIMutation({
@@ -17,21 +16,16 @@ const useApproveDriver = ({
     method: "PATCH",
     onMutate: () => {
       console.log("Approving Driver request...");
-      setIsLoading(true);
     },
     onError: (error) => {
-      setIsLoading(false);
       toast.error(error.message);
       console.log(error);
     },
   });
 
   //approve driver function
-  return async (e: MouseEvent<HTMLButtonElement>) => {
+  const approveDriverHandler = async () => {
     try {
-      e.preventDefault();
-      setIsLoading(true);
-
       //check if item is a driver
       const isDriver = selectedRideData?.isDriverApproved;
 
@@ -47,16 +41,20 @@ const useApproveDriver = ({
             { queryKey: ["drivers"] },
             { cancelRefetch: true }
           );
-          setIsLoading(false);
 
-          selectedRideData?.isDriverApproved
-            ? toast.success("Driver dispproved successfully!")
-            : toast.success("Driver approved successfully!");
+          if (!selectedRideData?.isDriverApproved) {
+            toast.success("Driver approved successfully!");
+          } else toast.success("Driver disapproved successfully!");
         },
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  return {
+    approveDriverHandler,
+    isLoading: mutation.isPending,
   };
 };
 

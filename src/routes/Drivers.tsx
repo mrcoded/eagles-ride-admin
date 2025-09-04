@@ -10,29 +10,14 @@ function Drivers() {
   //Get global context
   const {
     query,
+    isModalOpen,
     selectedItemId,
     setToolbarTitle,
-    setSelectedRideData,
-    isModalOpen,
+    setSelectedDriverData,
   } = useGlobalContext();
 
   //Get all drivers
   const { driversData, driversFetching, driversError } = DriverService();
-
-  //Set toolbar title
-  useEffect(() => {
-    setToolbarTitle("Driver");
-  }, [setToolbarTitle]);
-
-  //Get selected item data
-  const selectedRideData = driversData?.filter(
-    (data: { _id: string }) => data._id === selectedItemId
-  )[0];
-
-  //Set selected ride data
-  useEffect(() => {
-    setSelectedRideData(selectedRideData);
-  }, [selectedRideData]);
 
   // Filtered drivers based on search query
   const filterDrivers = useMemo(() => {
@@ -53,6 +38,17 @@ function Drivers() {
     return searchResult;
   }, [query, driversData]);
 
+  //Get selected driver data
+  const selectedDriverData = filterDrivers?.filter(
+    (data: { _id: string }) => data._id === selectedItemId
+  )[0];
+
+  //Set toolbar title, and selectedDriverData
+  useEffect(() => {
+    setToolbarTitle("Driver");
+    setSelectedDriverData(selectedDriverData);
+  }, [setToolbarTitle, selectedDriverData, setSelectedDriverData]);
+
   return (
     <>
       {driversError && <div className="text-red-500 text-4xl">Error</div>}
@@ -60,16 +56,18 @@ function Drivers() {
         <section className="w-full flex flex-col flex-1 justify-between">
           {/*Drivers Table*/}
           <div className="overflow-x-auto">
-            <DataTable
-              data={filterDrivers}
-              type="driver"
-              isLoading={driversFetching}
-            />
+            {filterDrivers && (
+              <DataTable
+                data={filterDrivers}
+                type="driver"
+                isLoading={driversFetching}
+              />
+            )}
           </div>
         </section>
 
-        {/* Right Section */}
-        {isModalOpen && <DriverTableModal drivers={filterDrivers} />}
+        {/* Modal Section */}
+        {isModalOpen && <DriverTableModal />}
       </div>
     </>
   );

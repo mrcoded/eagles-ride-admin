@@ -26,7 +26,7 @@ function AssignDriverAction({
   const { setIsOpen, selectedRideData } = useGlobalContext();
 
   //assign driver(s) to ride
-  const isLoading = useAssignDriver();
+  const { isLoading } = useAssignDriver();
 
   return (
     <Dialog>

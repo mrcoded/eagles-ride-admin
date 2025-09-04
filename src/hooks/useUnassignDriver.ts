@@ -1,15 +1,14 @@
-import { MouseEvent } from "react";
 import toast from "react-hot-toast";
 
 import { useAPIMutation } from "./useAPIMutation";
 import { useQueryClient } from "@tanstack/react-query";
+import { useGlobalContext } from "./useGlobalContext";
 
-const useUnAssignDriver = ({
-  selectedItemId,
-  selectedRideData,
-  setIsLoading,
-}: any) => {
+const useUnAssignDriver = () => {
   const queryClient = useQueryClient();
+
+  //GET data from context
+  const { selectedItemId, selectedRideData } = useGlobalContext();
 
   // Use the useAPImutation hook for assigning driver
   const mutation = useAPIMutation({
@@ -17,30 +16,24 @@ const useUnAssignDriver = ({
     method: "PATCH",
     onMutate: () => {
       console.log("Unassigning Driver request...");
-      setIsLoading(true);
     },
     onError: (error) => {
-      setIsLoading(false);
       toast.error(error.message);
       console.log(error);
     },
   });
 
-  //assign driver to ride function
-  return async (
-    e: MouseEvent<HTMLButtonElement>,
-    driverId: string | undefined
-  ) => {
+  //unassign driver to ride function
+  const unassignDriverHandler = async (driverId: string | null) => {
     try {
-      e.preventDefault();
-      setIsLoading(true);
-
+      //pass driver id
       const data = {
         driverId,
       };
 
+      //check if driver is unassigned
       const isDriverAssigned = selectedRideData?.drivers?.some(
-        (d: { _id: string }) => d._id !== driverId
+        (driver: { _id: string }) => driver._id !== driverId
       );
 
       //Invoke mutation
@@ -56,12 +49,16 @@ const useUnAssignDriver = ({
             { queryKey: ["book/all-rides"] },
             { cancelRefetch: true }
           );
-          setIsLoading(false);
         },
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  return {
+    unassignDriverHandler,
+    isLoading: mutation.isPending,
   };
 };
 
