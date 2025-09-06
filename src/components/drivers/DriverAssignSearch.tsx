@@ -2,10 +2,11 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
-import { DriversDataProps } from "@/types/drivers";
+import { DriversDataProps } from "@/components/drivers/types";
 
 import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { useHandleCheckboxChange } from "@/hooks/useHandleCheckbox";
 
 import {
   Command,
@@ -27,20 +28,13 @@ function DriverAssignSearch({
   const [itemId, setItemId] = useState<string | null>(null);
 
   //Global context
-  const { setIsOpen, query, setQuery, selectedRideData } = useGlobalContext();
+  const { query, setQuery, selectedRideData } = useGlobalContext();
 
   //assign driver(s) handler
   const { isLoading, assignDriverHandler } = useAssignDriver();
 
   // Handle checkbox change
-  const handleCheckboxChange = (checked: boolean, itemId: string) => {
-    if (checked) {
-      setIsOpen(true);
-      setItemId(itemId);
-    } else {
-      setItemId(null);
-    }
-  };
+  const checkboxHandler = useHandleCheckboxChange(setItemId);
 
   //Get existing assign driver IDs
   const selectedDriverIds =
@@ -90,7 +84,7 @@ function DriverAssignSearch({
                 <Checkbox
                   checked={itemId === item._id}
                   onCheckedChange={(checked: boolean) =>
-                    handleCheckboxChange(checked, item._id)
+                    checkboxHandler(checked, "", item._id)
                   }
                   className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
                 />

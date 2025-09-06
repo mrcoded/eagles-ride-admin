@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
-import { UserProps } from "@/types";
+import { UserProps } from "@/components/bookings/types";
 
 export const UserService = (
   selectedUserId?: string,
   selectedRideData?: {
-    child: {
+    child?: {
       _id: string;
     };
   }

@@ -1,5 +1,5 @@
 import { Car, User2, Users } from "lucide-react";
-import { DashboardCardProps } from "@/types/dashboard";
+import { DashboardCardProps } from "@/components/dashboard/types";
 
 const LargeCardData = ({
   ongoingRides,

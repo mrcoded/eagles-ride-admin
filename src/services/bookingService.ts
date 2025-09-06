@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
-import { BookingsDataProps } from "@/types/bookings";
+import { BookingsDataProps } from "@/components/bookings/types";
 
 export const BookingService = () => {
   const { makeAPIRequest } = useApiRequest();

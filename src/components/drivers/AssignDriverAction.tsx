@@ -1,13 +1,14 @@
 import { cn } from "@/lib/utils";
-import { CheckCheck, Loader2 } from "lucide-react";
+import { CheckCheck } from "lucide-react";
 
 import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
+import { LoadingSpinner } from "../Loading";
 import UnAssignDriver from "./UnassignDriver";
 import DriverAssignSearch from "./DriverAssignSearch";
 
-import { DriversDataProps } from "@/types/drivers";
+import { DriversDataProps } from "@/components/drivers/types";
 
 import {
   Dialog,
@@ -43,7 +44,7 @@ function AssignDriverAction({
           ? "Change Driver"
           : "Assign Driver"}
         {isLoading ? (
-          <Loader2 className="size-3 animate-spin" />
+          <LoadingSpinner className="size-4" />
         ) : (
           <CheckCheck className="size-3" />
         )}

@@ -1,21 +1,20 @@
 import { PhoneCall, MailCheck } from "lucide-react";
 
-import BookedRideInfo from "./bookings/BookedRideInfo";
-import DriverInfoModal from "./modals/DriverInfoModal";
-
-import { UserService } from "@/services/userService";
+import { UserProps } from "@/components/bookings/types";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
-import { selectedDriverInfo } from "../utils/selectedDriverInfo";
 
-function SelectedItemInfo({ isDriver }: { isDriver?: boolean | undefined }) {
+import BookedRideInfo from "@/components/bookings/BookedRideInfo";
+import DriverInfoModal from "@/components/modals/DriverInfoModal";
+
+function SelectedItemInfo({
+  user,
+  isDriver,
+}: {
+  user?: UserProps | undefined;
+  isDriver?: boolean | undefined;
+}) {
   // GET global context
-  const { selectedUserId, selectedDriverData } = useGlobalContext();
-
-  // GET driver info
-  const driverInfo = selectedDriverInfo(selectedDriverData);
-
-  // GET user data
-  const { user } = UserService(selectedUserId);
+  const { selectedDriverData } = useGlobalContext();
 
   return (
     <>
@@ -39,15 +38,11 @@ function SelectedItemInfo({ isDriver }: { isDriver?: boolean | undefined }) {
 
       <div className="flex flex-col justify-start items-start gap-1 w-full px-3">
         <h3 className="text-slate-100 text-[9px] font-medium">
-          {isDriver
-            ? "Driver's Uploaded Information"
-            : "Booked Ride Information"}
+          {isDriver && "Driver's Uploaded Information"}
+          {user && "Booked Ride Information"}
         </h3>
-        {isDriver ? (
-          <DriverInfoModal driverInfo={driverInfo} />
-        ) : (
-          <BookedRideInfo />
-        )}
+        {isDriver && <DriverInfoModal />}
+        {user && <BookedRideInfo />}
       </div>
     </>
   );

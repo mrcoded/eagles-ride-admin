@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
-import { DriversDataProps } from "@/types/drivers";
+import { DriversDataProps } from "@/components/drivers/types";
 
 export const DriverService = (driverId?: string) => {
   const { makeAPIRequest } = useApiRequest();

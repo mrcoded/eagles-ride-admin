@@ -1,16 +1,9 @@
 import { Download, PhoneCall, User2 } from "lucide-react";
 
-import { UserService } from "@/services/userService";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function BookedRideInfo() {
-  const { selectedUserId, selectedRideData } = useGlobalContext();
-
-  // GET child data
-  const { childData, childError } = UserService(
-    selectedUserId,
-    selectedRideData
-  );
+  const { selectedRideData } = useGlobalContext();
 
   return (
     <>
@@ -20,8 +13,8 @@ function BookedRideInfo() {
           Child's Name -{" "}
         </p>
         <p className="text-slate-200 text-[10px] capitalize font-medium tracking-wide">
-          {childData?.fullname}
-          {childError && "No child found!"}
+          {selectedRideData?.child?.fullname}
+          {/* {childError && "No child found!"} */}
         </p>
       </div>
       <div className="flex flex-col items-center h-14 gap-0.5 py-0.5 px-2 bg-orange-500 dark:bg-orange-600 rounded-sm w-full">
