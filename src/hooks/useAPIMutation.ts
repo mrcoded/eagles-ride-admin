@@ -1,7 +1,7 @@
 import { FieldValues } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 
-import { UseAPIMutationOptions } from "@/types";
+import { UseAPIMutationOptions } from "@/types/api";
 import { useApiRequest } from "@/hooks/useApiRequest";
 
 export function useAPIMutation(options: UseAPIMutationOptions) {
@@ -16,11 +16,7 @@ export function useAPIMutation(options: UseAPIMutationOptions) {
           data,
           method,
         });
-        // console.log(response);
-        //check for invalid credentials (customize as needed)
-        // if (response.message === "Invalid Credentials") {
-        //   throw new Error(response.message);
-        // }
+
         console.log(response);
         return response;
       } catch (error: unknown) {
@@ -33,7 +29,7 @@ export function useAPIMutation(options: UseAPIMutationOptions) {
         onMutate();
       }
     },
-    onSuccess: (data) => {
+    onSuccess: (data: unknown) => {
       if (onSuccess) {
         onSuccess(data);
       }
