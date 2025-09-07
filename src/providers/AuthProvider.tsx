@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 import AuthContext from "@/context/AuthContext";
-import { AuthContextType } from "@/types/context";
+import { AuthContextProps } from "@/context/types";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken || null);
 
-  const [formData, setFormData] = useState({
+  const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
@@ -26,17 +27,18 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const logout = () => {
+    toast.success("Logout Success...");
     localStorage.removeItem("token");
     setToken(null);
   };
 
-  const value: AuthContextType = {
+  const value: AuthContextProps = {
     token,
     isLoggedIn: !!token,
     login,
     logout,
-    formData,
-    setFormData,
+    loginData,
+    setLoginData,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
