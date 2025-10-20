@@ -1,7 +1,7 @@
 import SearchInput from "../SearchInput";
 import { FilterItems } from "../FilterItems";
 
-import { Menu, Settings, UserCircle2 } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Header() {
@@ -25,11 +25,6 @@ function Header() {
           </div>
         </div>
       )}
-
-      <div className="flex items-center justify-end gap-2.5">
-        <Settings className="size-6" />
-        <UserCircle2 className="size-6" />
-      </div>
     </header>
   );
 }

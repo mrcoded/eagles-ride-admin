@@ -14,10 +14,14 @@ const useLogin = () => {
   const mutation = useAPIMutation({
     endpoint: "admin/login",
     method: "POST",
-    onSuccess: (data) => {
+    onSuccess: (data: unknown) => {
+      //get token
+      const tokenData = data as { token: string };
+      if (!tokenData || tokenData.token === "undefined") return;
+
       toast.success("Login Success...");
       //pass token to auth context
-      login(data.token);
+      login(tokenData?.token);
       //Redirect
       navigate("/dashboard");
     },
@@ -43,7 +47,10 @@ const useLogin = () => {
     }
   };
 
-  return { loginHandler, isLoading: mutation.status === "pending" };
+  return {
+    loginHandler,
+    isLoading: mutation.isPending,
+  };
 };
 
 export default useLogin;

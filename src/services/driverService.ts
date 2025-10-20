@@ -9,8 +9,9 @@ export const DriverService = (driverId?: string) => {
 
   const {
     data: driversData,
-    isFetching: driversFetching,
     isError: driversError,
+    isPending: driversPending,
+    isFetching: driversFetching,
   } = useQuery<DriversDataProps[]>({
     queryKey: ["drivers"],
     queryFn: () =>
@@ -34,8 +35,9 @@ export const DriverService = (driverId?: string) => {
 
   return {
     driversData,
-    driversFetching,
     driversError,
+    driversPending,
+    driversFetching,
     driver,
     driverFetching,
   };

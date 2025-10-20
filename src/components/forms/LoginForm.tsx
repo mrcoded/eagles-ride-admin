@@ -16,19 +16,19 @@ import { Button } from "../ui/button";
 import { Checkbox } from "../ui/checkbox";
 
 export function LoginForm() {
-  const { formData, setFormData } = useAuthContext();
+  const { loginData, setLoginData } = useAuthContext();
 
   const { loginHandler, isLoading } = useLogin();
 
   //Submit handler
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    loginHandler(formData);
+    loginHandler(loginData);
   };
 
   //Input onChange Handler
   const onchangeHandler = async (e: FieldValues) => {
-    setFormData((prevData) => ({
+    setLoginData((prevData) => ({
       ...prevData,
       [e.target.name]: e.target.value,
     }));
