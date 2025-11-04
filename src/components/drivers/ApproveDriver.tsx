@@ -11,12 +11,12 @@ function ApproveDriver({ isDriver }: { isDriver: boolean | undefined }) {
   const { isLoading, approveDriverHandler } = useApproveDriver();
 
   return (
-    <div className="flex py-2">
+    <div className="flex items-center justify-center">
       {isDriver && (
         <button
           onClick={approveDriverHandler}
           className={cn(
-            `flex items-center gap-1 h-[22px] bg-slate-200 text-[9px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
+            `flex items-center justify-center gap-1 bg-primary text-xs p-2 font-medium text-slate-200 rounded-sm hover:bg-slate-400 tracking-tight whitespace-nowrap`,
             isLoading && "pointer-events-none bg-slate-400 "
           )}
         >
@@ -26,7 +26,7 @@ function ApproveDriver({ isDriver }: { isDriver: boolean | undefined }) {
           {isLoading ? (
             <Loader2 className="size-3 animate-spin" />
           ) : (
-            <CheckCheck className="size-3" />
+            <CheckCheck className="size-3.5" />
           )}
         </button>
       )}

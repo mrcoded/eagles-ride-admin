@@ -8,7 +8,7 @@ const useApproveDriver = () => {
   const queryClient = useQueryClient();
 
   //GET data from global context
-  const { selectedItemId, selectedRideData } = useGlobalContext();
+  const { selectedItemId, selectedDriverData } = useGlobalContext();
 
   // Use the useAPImutation hook for approving driver
   const mutation = useAPIMutation({
@@ -27,7 +27,7 @@ const useApproveDriver = () => {
   const approveDriverHandler = async () => {
     try {
       //check if item is a driver
-      const isDriver = selectedRideData?.isDriverApproved;
+      const isDriver = selectedDriverData?.isDriverApproved;
 
       const data = {
         is_approved: !isDriver,
@@ -42,7 +42,7 @@ const useApproveDriver = () => {
             { cancelRefetch: true }
           );
 
-          if (!selectedRideData?.isDriverApproved) {
+          if (!selectedDriverData?.isDriverApproved) {
             toast.success("Driver approved successfully!");
           } else toast.success("Driver disapproved successfully!");
         },

@@ -15,7 +15,7 @@ export const bookingFilters = [
     value: "none",
     label: "Remove Filter",
   },
-];
+] as const;
 
 export const driverFilters = [
   {
@@ -23,7 +23,11 @@ export const driverFilters = [
     label: "UnAssigned",
   },
   {
+    value: "approved_driver",
+    label: "Approved",
+  },
+  {
     value: "none",
     label: "Remove Filter",
   },
-];
+] as const;

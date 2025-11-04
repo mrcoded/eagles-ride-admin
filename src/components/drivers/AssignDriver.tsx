@@ -2,16 +2,17 @@ import { useMemo } from "react";
 
 import AssignDriverAction from "./AssignDriverAction";
 
+import filteredItemFn from "@/utils/filteredItemFn";
 import { DriverService } from "@/services/driverService";
 
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function AssignDriver() {
   //global context
-  const { query, driverId, selectedRideData } = useGlobalContext();
+  const { query, driverId } = useGlobalContext();
 
   //GET driver
-  const { driver, driversData: drivers } = DriverService(driverId);
+  const { driversData: drivers } = DriverService(driverId);
 
   //Get only approved drivers
   const approvedDrivers = drivers?.filter(
@@ -20,27 +21,11 @@ function AssignDriver() {
 
   // show only approved drivers
   const approvedDriversList = useMemo(() => {
-    const querySearch = query.trim().toLowerCase();
-
-    if (!querySearch) return approvedDrivers;
-
-    const searchResult = approvedDrivers?.filter(
-      (query: { fullname: string }) => {
-        return query.fullname.toLowerCase().includes(querySearch);
-      }
-    );
-
-    return searchResult;
+    return filteredItemFn(query, approvedDrivers);
   }, [query, approvedDrivers]);
 
   return (
     <div className="block py-0 w-fit">
-      {selectedRideData?.status === "assigned" && (
-        <p className="text-[6px] pr-2 font-bold pt-1.5 pl-1.5 bg-orange-500 text-slate-200 rounded-s-sm">
-          Assigned to {driver?.fullname}
-        </p>
-      )}
-
       <AssignDriverAction drivers={approvedDriversList} />
     </div>
   );
