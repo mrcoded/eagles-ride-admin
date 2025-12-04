@@ -1,7 +1,8 @@
-import SearchInput from "../SearchInput";
-import { FilterItems } from "../FilterItems";
-
 import { Menu } from "lucide-react";
+
+import SearchInput from "@/components/SearchInput";
+import { FilterItems } from "@/components/FilterItems";
+
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 function Header() {

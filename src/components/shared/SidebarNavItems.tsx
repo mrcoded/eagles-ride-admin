@@ -19,9 +19,9 @@ function SidebarNavItems() {
     <>
       <div className="h-16 items-center mb-6 p-4 dark:bg-slate-50 border-b">
         <img
-          src="/react.svg"
-          alt="Nyetir.io Logo"
-          className="h-7.5 w-fit object-cover opacity-100"
+          src="assets/logo.svg"
+          alt="Ealeseides Logo"
+          className="h-9 w-fit object-cover opacity-100"
           style={{ color: "transparent" }}
         />
       </div>

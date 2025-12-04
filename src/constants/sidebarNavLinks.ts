@@ -32,4 +32,4 @@ export const navigationItems = [
     icon: Users,
     label: "Manage Users",
   },
-];
+] as const;

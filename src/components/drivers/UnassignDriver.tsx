@@ -38,7 +38,7 @@ function UnAssignDriver() {
                 Confirm Unassign
               </DialogTitle>
               <DialogDescription className="flex justify-between">
-                <span>Are you sure you want to unassign driver?</span>
+                <span>Are you sure you want to unassign this driver?</span>
               </DialogDescription>
             </DialogHeader>
             <div className="inline-flex justify-between">

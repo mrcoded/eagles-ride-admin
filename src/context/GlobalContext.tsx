@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { GlobalContextProps } from "@/types/context";
+import { GlobalContextProps } from "./types";
 
 const GlobalContext = createContext<GlobalContextProps | null>(null);
 

@@ -19,8 +19,12 @@ export const bookingFilters = [
 
 export const driverFilters = [
   {
-    value: "unassigned",
-    label: "UnAssigned",
+    value: "unavailable",
+    label: "Unavailable",
+  },
+  {
+    value: "offline",
+    label: "Offline",
   },
   {
     value: "approved_driver",

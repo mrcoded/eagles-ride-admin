@@ -38,7 +38,7 @@ export const UserService = (
   });
 
   //Get user child
-  const { data: childData, error: childError } = useQuery<UserProps>({
+  const { data: childData, error: childError } = useQuery<UserProps["child"]>({
     queryKey: [`users/child/${selectedRideData?.child?._id}`],
     queryFn: () =>
       makeAPIRequest({

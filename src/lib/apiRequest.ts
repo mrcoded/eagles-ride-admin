@@ -20,7 +20,7 @@ export const apiRequest = async ({
       },
       body: JSON.stringify(data),
     });
-    console.log(response);
+
     if (response.status === 401) {
       throw new Error("Invalid Credentials!");
     }
@@ -29,13 +29,14 @@ export const apiRequest = async ({
       throw new Error("Something went wrong!");
     }
 
-    if (!response.ok) throw Error;
-
     // Consume and parse the response body
     const responseData = await response.json();
 
+    // If the response is not ok, throw an error
+    if (!response.ok) throw new Error(responseData.message);
+
     return responseData;
-  } catch (error: unknown) {
+  } catch (error: Error | unknown) {
     console.log(error);
     toast.error((error as Error).message);
   }
