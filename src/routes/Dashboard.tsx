@@ -1,6 +1,15 @@
+import { useEffect } from "react";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 import { LargeCard, SmallCard } from "@/components/dashboard/DashboardCards";
 
 function Dashboard() {
+  const { setToolbarTitle } = useGlobalContext();
+
+  // Set toolbar once
+  useEffect(() => {
+    setToolbarTitle("");
+  }, []);
+
   return (
     <div className="flex flex-col w-full space-y-8">
       <div className="flex justify-between sm:flex-row flex-col gap-5 sm:items-center">

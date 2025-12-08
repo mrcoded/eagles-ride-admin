@@ -4,9 +4,9 @@ import { CheckCheck } from "lucide-react";
 import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-import { LoadingSpinner } from "../Loading";
-import UnAssignDriver from "./UnassignDriver";
-import DriverAssignSearch from "./DriverAssignSearch";
+import { LoadingSpinner } from "@/components/Loading";
+import UnAssignDriver from "@/components/drivers/UnassignDriver";
+import DriverAssignSearch from "@/components/drivers/DriverAssignSearch";
 
 import { DriversDataProps } from "@/components/drivers/types";
 
@@ -36,13 +36,11 @@ function AssignDriverAction({
           setIsOpen(true);
         }}
         className={cn(
-          `flex items-center gap-1 w-18 h-5 bg-slate-200 text-[8px] px-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400`,
+          `flex items-center gap-1 h-5 bg-orange-200 text-xs p-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400 whitespace-nowrap`,
           isLoading && "pointer-events-none bg-slate-400 "
         )}
       >
-        {selectedRideData?.status === "assigned"
-          ? "Change Driver"
-          : "Assign Driver"}
+        {selectedRideData?.status === "assigned" ? "Change" : "Assign"}
         {isLoading ? (
           <LoadingSpinner className="size-4" />
         ) : (

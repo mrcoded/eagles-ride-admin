@@ -1,30 +1,60 @@
 import { UserService } from "@/services/userService";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-import AssignDriver from "../drivers/AssignDriver";
-import SelectedItemInfo from "../SelectedItemInfo";
-import SelectedItemCard from "../SelectedItemCard";
-import SelectedUserAvatar from "../SelectedUserAvatar";
+import { LoadingSpinner } from "@/components/Loading";
+import SelectedItemCard from "@/components/SelectedItemCard";
+import SelectedUserAvatar from "@/components/SelectedUserAvatar";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import SelectedItemDetails from "@/components/SelectedItemDetails";
 
 const RideTableModal = () => {
-  const { selectedUserId, selectedRideData } = useGlobalContext();
+  const { isModalOpen, setIsModalOpen, selectedUserId, selectedRideData } =
+    useGlobalContext();
 
   //Get selected user data
-  const { user, isFetching } = UserService(selectedUserId);
+  const { user, userFetching } = UserService(selectedUserId);
 
   return (
-    <aside className="w-full md:w-[30%] flex flex-col gap-1">
-      <div className="flex flex-col items-center justify-center flex-1 h-screen bg-orange-400 py-2.5 rounded-t-2xl shadow space-y-1.5 xl:space-y-3.5 ">
-        <SelectedUserAvatar data={user} />
+    <aside className="w-full rounded-2xl shadow">
+      <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
+        <DialogContent
+          className="max-w-full sm:max-w-3xl"
+          aria-describedby={"rides-modal-content"}
+        >
+          <DialogHeader>
+            <DialogTitle className="text-slate-400 dark:text-slate-200 text-base text-left font-medium">
+              Driver's Information
+            </DialogTitle>
+          </DialogHeader>
 
-        {/* Selected Item Card */}
-        <SelectedItemCard selectedItemData={selectedRideData} />
+          {userFetching ? (
+            <LoadingSpinner className="size-8" />
+          ) : (
+            <div
+              aria-describedby="rides-modal-description"
+              className="flex flex-col items-center justify-center space-y-5"
+            >
+              <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:space-x-14">
+                {/* Selected User Info */}
+                <SelectedUserAvatar userData={user} />
 
-        {/* Assign Driver */}
-        <AssignDriver />
+                {/* Selected Child Info*/}
+                <SelectedUserAvatar childData={selectedRideData?.child} />
+              </div>
+              {/* Selected Item Card */}
+              <SelectedItemCard />
 
-        <SelectedItemInfo />
-      </div>
+              {/* Selected Item Info */}
+              <SelectedItemDetails />
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </aside>
   );
 };

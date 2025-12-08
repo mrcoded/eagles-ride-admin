@@ -8,7 +8,7 @@ const useUnAssignDriver = () => {
   const queryClient = useQueryClient();
 
   //GET data from context
-  const { selectedItemId, selectedRideData } = useGlobalContext();
+  const { selectedItemId } = useGlobalContext();
 
   // Use the useAPImutation hook for assigning driver
   const mutation = useAPIMutation({
@@ -18,30 +18,23 @@ const useUnAssignDriver = () => {
       console.log("Unassigning Driver request...");
     },
     onError: (error) => {
-      toast.error(error.message);
-      console.log(error);
+      toast.error(error?.message);
     },
   });
 
   //unassign driver to ride function
-  const unassignDriverHandler = async (driverId: string | null) => {
+  const unassignDriverHandler = async (driverId: string | undefined) => {
     try {
       //pass driver id
       const data = {
         driverId,
       };
 
-      //check if driver is unassigned
-      const isDriverAssigned = selectedRideData?.drivers?.some(
-        (driver: { _id: string }) => driver._id !== driverId
-      );
-
       //Invoke mutation
       await mutation.mutateAsync(data, {
-        onSuccess: () => {
-          //check updated driver data
-          if (!isDriverAssigned) {
-            toast.success("Driver unassigned successfully.");
+        onSuccess: (data) => {
+          if (data) {
+            toast.success(data?.message);
           }
 
           //invalidate updated bookings data

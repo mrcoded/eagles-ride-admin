@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 const useAssignDriver = () => {
   const queryClient = useQueryClient();
 
-  const { selectedItemId, selectedRideData } = useGlobalContext();
+  const { selectedItemId } = useGlobalContext();
 
   // Use the useAPImutation hook for assigning driver
   const mutation = useAPIMutation({
@@ -18,58 +18,37 @@ const useAssignDriver = () => {
       console.log("Assigning Driver request...");
     },
     onError: (error) => {
-      toast.error(error.message);
-      // console.log(error);
+      toast.error(error.message, { duration: 5000 });
+      console.log(error);
     },
   });
 
   //assign driver to ride function
-  const assignDriverHandler = async (driverId: string) => {
+  const assignDriverHandler = async (
+    driverId: string,
+    shift: string | null
+  ) => {
     try {
-      //Get existing assign driver IDs
-      const selectedDriverIds =
-        selectedRideData?.drivers?.map(
-          (driver: { _id: string }) => driver._id
-        ) || [];
-
-      //check if driver is already assigned
-      const isDriverAssigned = selectedDriverIds.includes(driverId);
-      if (isDriverAssigned) {
-        toast.error("Driver already assigned!");
-        return;
-      }
-
       const data = {
         driverId,
+        shift,
       };
 
       //Invoke mutation
       await mutation.mutateAsync(data, {
-        onSuccess: () => {
+        onSuccess: (data) => {
+          if (data) {
+            toast.success("Driver assigned successfully!");
+          }
+
           //refetch updated ride booking datas
           queryClient.invalidateQueries(
             { queryKey: ["book/all-rides"] },
             { cancelRefetch: true }
           );
-
-          //check if driver is unassigned
-          if (selectedRideData?.status !== "assigned") {
-            toast.success("Driver assigned successfully!");
-          }
-
-          //check if driver is assigned
-          if (selectedRideData?.status === "assigned" && isDriverAssigned) {
-            toast.success("Driver unassigned successfully!");
-          }
-
-          //check if assigned drivers are more than two
-          if (selectedRideData?.status === "assigned" && !isDriverAssigned) {
-            toast.error("Assigned drivers are more than two!");
-          }
         },
       });
     } catch (error) {
-      // setIsLoading(false);
       console.log(error);
     }
   };

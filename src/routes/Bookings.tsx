@@ -2,8 +2,10 @@ import { useEffect, useMemo } from "react";
 
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
+import filteredItemFn from "@/utils/filteredItemFn";
 import { BookingService } from "@/services/bookingService";
 
+import { LoadingSpinner } from "@/components/Loading";
 import DataTable from "@/components/tables/DataTable";
 import RideTableModal from "@/components/modals/RideTableModal";
 
@@ -17,62 +19,50 @@ function RideBookings() {
   } = useGlobalContext();
 
   //Get all rides
-  const { rides, ridesFetching } = BookingService();
+  const { rides, ridesFetching, ridesPending } = BookingService();
 
-  // Filtered bookings based on search query
+  // Filtered rides based on search query
   const filteredBookings = useMemo(() => {
-    const querySearch = query.trim().toLowerCase();
-
-    if (!querySearch) return rides;
-
-    const searchResult = rides?.filter((item) => {
-      return [
-        item.user?.fullname,
-        item.user?.address,
-        item.user?.phone_number,
-        item?.pick_up_location,
-        item?.drop_off_location,
-        item?.status,
-      ].some((field) => field?.toLowerCase().includes(querySearch));
-    });
-
-    return searchResult;
+    return filteredItemFn(query, rides);
   }, [query, rides]);
 
   //Get selected ride data
-  const selectedRideData = filteredBookings?.filter(
-    (data: { _id: string }) => data._id === selectedItemId
-  )[0];
+  const selectedRideData = filteredBookings?.find(
+    (booking) => booking._id === selectedItemId
+  );
 
-  //Set toolbar title and selected ride data
+  console.log(selectedRideData);
+  // Set toolbar once
   useEffect(() => {
     setToolbarTitle("Booking");
+  }, []);
+
+  // Sync selected driver state
+  useEffect(() => {
     setSelectedRideData(selectedRideData);
-  }, [selectedRideData, setToolbarTitle, setSelectedRideData]);
+  }, [selectedRideData]);
 
   return (
-    <div className="inline-flex gap-3 w-full">
+    <div className="flex gap-3 w-full">
       <section className="w-full flex flex-col flex-1 justify-between">
         {/* Ride Bookings Table*/}
-        {filteredBookings.length === 0 ? (
-          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
-            Search not found!
-          </div>
-        ) : !filteredBookings ? (
-          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
-            Searchs not found!
-          </div>
-        ) : (
+        {ridesPending ? (
+          <LoadingSpinner className="size-10" />
+        ) : filteredBookings ? (
           <DataTable
             data={filteredBookings}
             type="booking"
             isLoading={ridesFetching}
           />
+        ) : (
+          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
+            <LoadingSpinner className="size-10" />
+          </div>
         )}
-      </section>
 
-      {/* Modal Section */}
-      {isModalOpen && <RideTableModal />}
+        {/* Modal Section */}
+        {isModalOpen && <RideTableModal />}
+      </section>
     </div>
   );
 }

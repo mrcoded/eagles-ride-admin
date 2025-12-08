@@ -17,8 +17,9 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+import ShiftSelector from "@/components/drivers/ShiftSelector";
 
 function DriverAssignSearch({
   approvedDrivers,
@@ -26,9 +27,11 @@ function DriverAssignSearch({
   approvedDrivers: DriversDataProps[] | undefined;
 }) {
   const [itemId, setItemId] = useState<string | null>(null);
+  const [shift, setShift] = useState<"morning" | "afternoon" | null>(null);
 
   //Global context
-  const { query, setQuery, selectedRideData } = useGlobalContext();
+  const { query, setQuery, setDriverId, selectedRideData, isOpen } =
+    useGlobalContext();
 
   //assign driver(s) handler
   const { isLoading, assignDriverHandler } = useAssignDriver();
@@ -36,13 +39,16 @@ function DriverAssignSearch({
   // Handle checkbox change
   const checkboxHandler = useHandleCheckboxChange(setItemId);
 
-  //Get existing assign driver IDs
-  const selectedDriverIds =
-    selectedRideData?.drivers?.map((driver: { _id: string }) => driver._id) ||
-    [];
+  //Get  assigned driver by id
+  const acceptedDrivers = selectedRideData?.drivers?.filter(
+    (driver) => driver?.id
+  );
 
   return (
     <Command className="rounded-lg border shadow-md md:min-w-[450px]">
+      {/* Select shift */}
+      <ShiftSelector shift={shift} setShift={setShift} />
+
       <CommandInput
         value={query}
         onValueChange={(val) => setQuery(val)}
@@ -51,24 +57,32 @@ function DriverAssignSearch({
       <CommandList>
         <CommandEmpty>No driver found.</CommandEmpty>
         <CommandGroup heading="Drivers Suggestions">
-          {approvedDrivers?.map((item: { _id: string; fullname: string }) => {
+          {approvedDrivers?.map((item, index) => {
             //Check if driver is selected
-            const selectedDriver = selectedDriverIds.includes(item._id);
+            const selectedDriver = acceptedDrivers?.find(
+              (driver) =>
+                driver?.id === item?._id &&
+                driver?.assignmentStatus === "accepted" &&
+                driver?.shift
+            );
+
+            //Check if driver is assigned
+            const assignedDriver = selectedDriver?.id === item._id;
 
             //Assign driver
             const assignDriver = (e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
-              assignDriverHandler(item._id);
+              assignDriverHandler(item._id, shift);
             };
 
             return (
               <CommandItem
-                key={item._id}
+                key={index}
                 value={item.fullname}
                 disabled={isLoading}
                 className={cn(
                   "cursor-pointer",
-                  selectedDriver && "text-slate-400"
+                  assignedDriver && "text-slate-400"
                 )}
               >
                 <Car />
@@ -79,13 +93,14 @@ function DriverAssignSearch({
                   onClick={assignDriver}
                 >
                   {item.fullname}
-                  {selectedDriver && <Check className={cn("ml-auto size-5")} />}
+                  {assignedDriver && <Check className={cn("ml-auto size-5")} />}
                 </Button>
                 <Checkbox
-                  checked={itemId === item._id}
-                  onCheckedChange={(checked: boolean) =>
-                    checkboxHandler(checked, "", item._id)
-                  }
+                  checked={itemId === item._id && isOpen === true}
+                  onCheckedChange={(checked: boolean) => {
+                    checkboxHandler(checked, "", item._id);
+                    setDriverId(item._id);
+                  }}
                   className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
                 />
               </CommandItem>

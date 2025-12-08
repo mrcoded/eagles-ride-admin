@@ -1,22 +1,15 @@
+import { SelectedItemCardProps } from "@/types";
 import { Gauge, NotebookPen, CarFrontIcon } from "lucide-react";
 
-export const selectedCardItems = (
-  selectedItemData:
-    | {
-        schedule?: string;
-        status: string;
-        trip_type: string;
-      }
-    | undefined
-) => {
+export const selectedCardItems = (selectedItemData: SelectedItemCardProps) => {
   return [
     {
       label: "Schedule",
       icon: Gauge,
-      value: selectedItemData?.schedule,
+      value: selectedItemData?.schedule_type,
     },
     {
-      label: "Booking",
+      label: "Status",
       icon: NotebookPen,
       value: selectedItemData?.status,
     },
