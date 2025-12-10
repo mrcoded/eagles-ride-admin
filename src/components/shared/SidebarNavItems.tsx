@@ -2,9 +2,9 @@ import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { LogOut } from "lucide-react";
 
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 
-import { ToggleTheme } from "../ToggleTheme";
+import { ToggleTheme } from "@/components/ToggleTheme";
 import { useAuthContext } from "@/hooks/useAuthContext";
 import { navigationItems } from "@/constants/sidebarNavLinks";
 
@@ -20,7 +20,7 @@ function SidebarNavItems() {
       <div className="h-16 items-center mb-6 p-4 dark:bg-slate-50 border-b">
         <img
           src="assets/logo.svg"
-          alt="Ealeseides Logo"
+          alt="Eaglesrides Logo"
           className="h-9 w-fit object-cover opacity-100"
           style={{ color: "transparent" }}
         />

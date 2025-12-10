@@ -4,8 +4,7 @@ export const DRIVERS_TABLE_HEADERS = [
   "Email",
   "Phone",
   "Approval",
-  "Driver Status",
-  "Redundant",
+  "Status",
   "",
 ];
 
@@ -15,7 +14,7 @@ export const RIDES_TABLE_HEADERS = [
   "Phone",
   "Trip Type",
   "Status",
-  "Pickup",
+  "Trip Type",
   "Dropoff",
   "",
 ];

@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import AssignDriverAction from "./AssignDriverAction";
+import AssignDriverAction from "@/components/drivers/AssignDriverAction";
 
 import filteredItemFn from "@/utils/filteredItemFn";
 import { DriverService } from "@/services/driverService";

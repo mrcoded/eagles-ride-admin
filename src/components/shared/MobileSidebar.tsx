@@ -1,5 +1,5 @@
 import SidebarNavItems from "./SidebarNavItems";
-import { useGlobalContext } from "@/context/GlobalContext";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 export function MobileSidebar() {
   const { sidebarOpen, setSidebarOpen } = useGlobalContext();
@@ -9,7 +9,7 @@ export function MobileSidebar() {
       {/* Mobile sidebar */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50"
+          className="fixed inset-0 bg-black bg-opacity-70 z-50"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
           <SidebarNavItems />

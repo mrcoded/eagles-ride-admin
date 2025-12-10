@@ -1,14 +1,14 @@
-import { BookingsDataProps } from "../../components/bookings/types";
-import { DriversDataProps } from "../../components/drivers/types";
+import { BookingsDataProps } from "@/components/bookings/types";
+import { DriversDataProps } from "@/components/drivers/types";
 
 export interface AuthContextProps {
   token: string | null;
   isLoggedIn: boolean;
   login: (token: string) => void;
   logout: () => void;
-  loginData: { email: string; password: string };
+  loginData: { email: string; password: string; role: string };
   setLoginData: React.Dispatch<
-    React.SetStateAction<{ email: string; password: string }>
+    React.SetStateAction<{ email: string; password: string; role: string }>
   >;
 }
 
@@ -31,7 +31,7 @@ export interface GlobalContextProps {
   setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
   toolbarTitle: string;
   setToolbarTitle: React.Dispatch<React.SetStateAction<string>>;
-  driverId: string;
+  driverId: string | undefined;
   setDriverId: React.Dispatch<React.SetStateAction<string | undefined>>;
   selectedRideData: BookingsDataProps["rides"] | undefined;
   setSelectedRideData: React.Dispatch<
