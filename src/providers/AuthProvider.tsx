@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import AuthContext from "@/context/AuthContext";
 import { AuthContextProps } from "@/context/types";
+import AuthContext from "@/context/AuthContext";
+import { verifyTokenExpiration } from "@/utils/verifyToken";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const navigate = useNavigate();
   const storedToken = localStorage.getItem("token");
   const [token, setToken] = useState(storedToken || null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
+    role: "admin",
   });
 
   useEffect(() => {
@@ -19,22 +24,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (storedToken && token !== storedToken) {
       setToken(storedToken);
     }
-  }, [token]);
 
+    if (token) {
+      //check if token is expired
+      const isTokenValid = verifyTokenExpiration(token);
+      setIsLoggedIn(isTokenValid);
+    }
+
+    if (!token) {
+      setIsLoggedIn(false);
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
+  }, [token, navigate]);
+
+  //login handler
   const login = (newToken: string) => {
     localStorage.setItem("token", newToken);
     setToken(newToken);
   };
 
+  //logout handler
   const logout = () => {
     toast.success("Logout Success...");
     localStorage.removeItem("token");
-    setToken(null);
+    setTimeout(() => {
+      setToken(null);
+    }, 2000);
   };
 
   const value: AuthContextProps = {
     token,
-    isLoggedIn: !!token,
+    isLoggedIn,
     login,
     logout,
     loginData,
