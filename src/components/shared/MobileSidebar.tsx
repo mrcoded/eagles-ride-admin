@@ -9,10 +9,12 @@ export function MobileSidebar() {
       {/* Mobile sidebar */}
       {sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-70 z-50"
+          className="w-2/3 sm:w-1/2 fixed inset-0 bg-black z-50"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          <SidebarNavItems />
+          <div className="h-full bg-slate-900">
+            <SidebarNavItems />
+          </div>
         </div>
       )}
     </>

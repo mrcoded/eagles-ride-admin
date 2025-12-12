@@ -17,7 +17,7 @@ export function ToggleTheme() {
   return (
     <li
       onClick={toggleTheme}
-      className="flex items-center py-2 px-3 text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
+      className="flex items-center py-2 px-3 text-slate-50 lg:text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
     >
       {isDarkMode ? (
         <LucideMoon className="size-3.5" />

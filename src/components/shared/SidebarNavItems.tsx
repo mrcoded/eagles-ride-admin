@@ -37,7 +37,7 @@ function SidebarNavItems() {
                   className={cn(
                     isActive
                       ? "bg-gray-200 dark:bg-gray-700 text-primary"
-                      : "text-slate-800",
+                      : "text-slate-50 lg:text-slate-800",
                     "flex items-center py-2 px-3 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors"
                   )}
                 >
@@ -51,13 +51,13 @@ function SidebarNavItems() {
           })}
         </ul>
       </nav>
-      <div className="flex items-center w-full mt-20 sm:mt-14 p-4">
+      <div className="flex items-center w-full mt-20 lg:mt-14 p-4">
         <ul className="space-y-4">
           <ToggleTheme />
           <Button
             variant="link"
             onClick={() => logout()}
-            className="flex items-center py-2 px-3 text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
+            className="flex items-center py-2 px-3 text-slate-50 lg:text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
           >
             <LogOut className="size-3.5" />
             <span className="ml-3 font-medium text-sm">Logout</span>

@@ -22,15 +22,18 @@ export const useDashboardStats = () => {
     assignedRides: rides?.filter((i) => i.status === "assigned").length ?? 0,
     approvedDrivers:
       driversData?.filter(
-        (item: { status: string }) => item.status === "approved"
+        (item: { isDriverApproved?: boolean }) => item.isDriverApproved === true
       ).length ?? 0,
-    assignedDrivers:
-      driversData?.filter(
-        (item: { status: string }) => item.status === "assigned"
-      ).length ?? 0,
+    assignedDrivers: rides?.reduce((count, ride) => {
+      const acceptedDrivers = ride.drivers?.filter(
+        (driver) => driver.assignmentStatus === "accepted"
+      );
+      return count + (acceptedDrivers?.length ?? 0);
+    }, 0),
     awaitingApproval:
       driversData?.filter(
-        (item: { status: string }) => item.status === "not approved"
+        (item: { isDriverApproved?: boolean }) =>
+          item.isDriverApproved === false
       ).length ?? 0,
     totalRides: rides?.length ?? 0,
     totalDrivers: driversData?.length ?? 0,
