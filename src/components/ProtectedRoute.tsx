@@ -4,11 +4,17 @@ import { Navigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
 
 export default function ProtectedRoute({ children }: { children: ReactNode }) {
-  const { isLoggedIn } = useAuthContext();
+  const { isLoading, isLoggedIn } = useAuthContext();
+
+  if (isLoading) {
+    return <></>;
+  }
 
   if (!isLoggedIn) {
     return <Navigate to="/login" replace />;
   }
 
-  return <>{children}</>;
+  if (isLoggedIn) {
+    return <>{children}</>;
+  }
 }

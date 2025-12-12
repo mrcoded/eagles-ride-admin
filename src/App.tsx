@@ -1,38 +1,28 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./index.css";
-import { Button } from "./components/ui/button";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+import Login from "@/routes/Login";
+import Drivers from "@/routes/Drivers";
+import Dashboard from "@/routes/Dashboard";
+import RideBookings from "@/routes/Bookings";
+
+import AppLayout from "@/components/AppLayout";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <div className="flex flex-col justify-center items-center">
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button
-          variant="destructive"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          count is {count}
-        </Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <Routes>
+      {/* Public route */}
+      <Route path="/login" element={<Login />} />
+      <Route element={<AppLayout />}>
+        {/* Protected routes */}
+        <Route path="/" element={<Navigate to="/dashboard" />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/ride-bookings" element={<RideBookings />} />
+        <Route path="/drivers" element={<Drivers />} />
+        {/* //404 pages */}
+        <Route path="*" element={<Navigate to="/dashboard" replace />} />
+      </Route>
+    </Routes>
   );
 }
 
