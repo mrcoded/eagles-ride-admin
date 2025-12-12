@@ -17,7 +17,7 @@ function SidebarNavItems() {
 
   return (
     <>
-      <div className="h-16 items-center mb-6 p-4 dark:bg-slate-50 border-b">
+      <div className="h-16 items-center mb-6 p-4  border-b">
         <img
           src="assets/logo.svg"
           alt="Eaglesrides Logo"
@@ -51,7 +51,7 @@ function SidebarNavItems() {
           })}
         </ul>
       </nav>
-      <div className="flex items-center w-full mt-14 p-4">
+      <div className="flex items-center w-full mt-20 sm:mt-14 p-4">
         <ul className="space-y-4">
           <ToggleTheme />
           <Button

@@ -28,7 +28,7 @@ const SelectedUserAvatar = ({
         <p className="text-left text-base md:text-lg font-bold py-1 tracking-wide">
           {data?.fullname}
         </p>
-        <p className="flex items-center gap-1 text-slate-400 text-sm text-left tracking-tight leading-4">
+        <p className="flex items-center gap-1 text-slate-500 text-sm text-left tracking-tight leading-4">
           {childData ? (
             <School2 className="size-3" />
           ) : (
@@ -36,7 +36,7 @@ const SelectedUserAvatar = ({
           )}
           {data?.address ?? data?.residential_address} {data?.school}
         </p>
-        <p className="flex items-center text-slate-400 text-sm gap-1">
+        <p className="flex items-center text-slate-500 text-sm gap-1">
           {childData ? (
             <User2 className="size-3" />
           ) : (
@@ -44,7 +44,7 @@ const SelectedUserAvatar = ({
           )}
           {childData ? `Age - ${data?.age} years` : data?.email}
         </p>
-        <p className="flex items-center text-slate-400 text-sm gap-1 capitalize tracking-tight">
+        <p className="flex items-center text-slate-500 text-sm gap-1 capitalize tracking-tight">
           {childData ? (
             <User2 className="size-3" />
           ) : (

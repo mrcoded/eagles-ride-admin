@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
-import { UserProps } from "@/components/bookings/types";
+import { UserProps } from "@/types/bookings";
 
 export const UserService = (
   selectedUserId?: string,

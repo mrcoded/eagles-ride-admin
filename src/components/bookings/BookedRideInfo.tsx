@@ -4,7 +4,7 @@ import AssignDriver from "@/components/drivers/AssignDriver";
 
 import { SELECTED_RIDE } from "@/constants/selectedRide";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
-import { SelectedBookedRideProps } from "@/components/bookings/types";
+import { SelectedBookedRideProps } from "@/types/bookings";
 
 function BookedRideInfo() {
   const { selectedRideData } = useGlobalContext();
@@ -49,6 +49,7 @@ function BookedRideInfo() {
           Pick Up days - <span className="font-medium">{days}</span>
         </div>
       </div>
+
       {SELECTED_RIDE(
         selectedItemData,
         acceptedMorningDriver,
@@ -56,12 +57,12 @@ function BookedRideInfo() {
       ).map((ride, index) => (
         <div key={index} className="grid grid-cols-2 w-full md:gap-4">
           <div className="flex flex-col items-start dark:bg-orange-600 w-full">
-            <p className="flex items-center gap-1 text-slate-400 text-sm font-medium">
+            <p className="flex items-center gap-1 text-slate-500 text-sm font-medium">
               <CarFront className="size-3.5 stroke-slate-400" />
               {ride?.label_from} Location - {ride?.location_from}
             </p>
-            <p className="text-slate-400 text-xs">{ride?.address_from}</p>
-            <p className="text-slate-400 text-xs mb-1">
+            <p className="text-slate-500 text-xs">{ride?.address_from}</p>
+            <p className="text-slate-500 text-xs mb-1">
               time - <span>{ride?.time}</span>
             </p>
             <span className="flex items-center justify-between w-full">
@@ -84,14 +85,14 @@ function BookedRideInfo() {
           </div>
 
           <div className="flex flex-col items-start dark:bg-orange-600 w-full">
-            <p className="flex items-center gap-1 text-slate-400 text-sm font-medium">
+            <p className="flex items-center gap-1 text-slate-500 text-sm font-medium">
               <Car className="size-3.5 stroke-slate-400" />
               {ride?.label_to} Location - {ride?.location_to}
             </p>
-            <p className="text-slate-400 text-xs tracking-tight">
+            <p className="text-slate-500 text-xs tracking-tight">
               {ride?.address_to}
             </p>
-            <p className="text-slate-400 text-xs">
+            <p className="text-slate-500 text-xs">
               time - <span>{ride?.time}</span>
             </p>
           </div>

@@ -1,6 +1,6 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useHandleCheckboxChange } from "@/hooks/useHandleCheckbox";
-import { ShiftSelectorProps } from "../bookings/types";
+import { ShiftSelectorProps } from "../../types/bookings";
 
 function ShiftSelector({ shift, setShift, setItemId }: ShiftSelectorProps) {
   // Handle checkbox change

@@ -31,7 +31,6 @@ function RideBookings() {
     (booking) => booking._id === selectedItemId
   );
 
-  console.log(selectedRideData);
   // Set toolbar once
   useEffect(() => {
     setToolbarTitle("Booking");

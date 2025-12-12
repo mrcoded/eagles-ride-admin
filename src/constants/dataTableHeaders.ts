@@ -14,7 +14,6 @@ export const RIDES_TABLE_HEADERS = [
   "Phone",
   "Trip Type",
   "Status",
-  "Trip Type",
-  "Dropoff",
+  "Ride Type",
   "",
 ];

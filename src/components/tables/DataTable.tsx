@@ -1,8 +1,8 @@
-import Pagination from "../Pagination";
-import TableRowItem from "./TableRowItem";
-import { TableLoader } from "../TableLoader";
+import Pagination from "@/components/Pagination";
+import TableRowItem from "@/components/tables/TableRowItem";
+import { TableLoader } from "@/components/TableLoader";
 
-import { DataTableProps, TableType } from "./types";
+import { DataTableProps, TableType } from "../../types/tables";
 
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 

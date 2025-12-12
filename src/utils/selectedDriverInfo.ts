@@ -1,4 +1,4 @@
-import { DriversDataProps } from "@/components/drivers/types";
+import { DriversDataProps } from "@/types/drivers";
 import { Car, Download, NotebookPen, PhoneCall, User2 } from "lucide-react";
 
 export const selectedDriverInfo = (

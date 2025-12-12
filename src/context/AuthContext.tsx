@@ -1,5 +1,5 @@
 import { createContext } from "react";
-import { AuthContextProps } from "@/context/types";
+import { AuthContextProps } from "@/types/context";
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 

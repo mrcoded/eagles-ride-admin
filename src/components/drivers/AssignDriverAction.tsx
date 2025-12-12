@@ -8,7 +8,7 @@ import { LoadingSpinner } from "@/components/Loading";
 import UnAssignDriver from "@/components/drivers/UnassignDriver";
 import DriverAssignSearch from "@/components/drivers/DriverAssignSearch";
 
-import { DriversDataProps } from "@/components/drivers/types";
+import { DriversDataProps } from "@/types/drivers";
 
 import {
   Dialog,

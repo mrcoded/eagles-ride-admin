@@ -29,7 +29,7 @@ export function useAPIMutation(options: UseAPIMutationOptions) {
         onMutate();
       }
     },
-    onSuccess: (data: unknown) => {
+    onSuccess: (data: { message: string }) => {
       if (onSuccess) {
         onSuccess(data);
       }

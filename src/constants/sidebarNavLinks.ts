@@ -1,9 +1,9 @@
 import {
   Car,
-  DollarSign,
+  // DollarSign,
   LayoutDashboard,
   NotebookPenIcon,
-  Users,
+  // Users,
 } from "lucide-react";
 
 export const navigationItems = [
@@ -22,14 +22,14 @@ export const navigationItems = [
     icon: NotebookPenIcon,
     label: "Ride Bookings",
   },
-  {
-    path: "/payments",
-    icon: DollarSign,
-    label: "Payments",
-  },
-  {
-    path: "/manage-users",
-    icon: Users,
-    label: "Manage Users",
-  },
+  // {
+  //   path: "/payments",
+  //   icon: DollarSign,
+  //   label: "Payments",
+  // },
+  // {
+  //   path: "/manage-users",
+  //   icon: Users,
+  //   label: "Manage Users",
+  // },
 ] as const;

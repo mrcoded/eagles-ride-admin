@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 
 import { useApiRequest } from "@/hooks/useApiRequest";
 
-import { DriversDataProps } from "@/components/drivers/types";
+import { DriversDataProps } from "@/types/drivers";
 
 export const DriverService = (driverId?: string) => {
   const { makeAPIRequest } = useApiRequest();
 
   const {
-    data: driversData,
+    data: driversData = [],
     isError: driversError,
     isPending: driversPending,
     isFetching: driversFetching,
@@ -19,9 +19,14 @@ export const DriverService = (driverId?: string) => {
         endpoint: "drivers",
         method: "GET",
       }),
+    staleTime: 1000 * 60 * 5,
   });
 
-  const { data: { driver } = {}, isFetching: driverFetching } = useQuery<{
+  const {
+    data: { driver } = {},
+    isFetching: driverFetching,
+    isPending: driverPending,
+  } = useQuery<{
     driver: { fullname: string };
   }>({
     queryKey: [`drivers/${driverId}`],
@@ -40,5 +45,6 @@ export const DriverService = (driverId?: string) => {
     driversFetching,
     driver,
     driverFetching,
+    driverPending,
   };
 };

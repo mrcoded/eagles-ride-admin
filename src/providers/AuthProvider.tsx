@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-import { AuthContextProps } from "@/context/types";
+import { AuthContextProps } from "@/types/context";
 import AuthContext from "@/context/AuthContext";
 import { verifyTokenExpiration } from "@/utils/verifyToken";
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const navigate = useNavigate();
   const storedToken = localStorage.getItem("token");
-  const [token, setToken] = useState(storedToken || null);
+
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(storedToken || null);
 
   const [loginData, setLoginData] = useState({
     email: "",
@@ -29,10 +31,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       //check if token is expired
       const isTokenValid = verifyTokenExpiration(token);
       setIsLoggedIn(isTokenValid);
+      setIsLoading(false);
     }
 
     if (!token) {
+      setIsLoading(false);
       setIsLoggedIn(false);
+
       setTimeout(() => {
         navigate("/login");
       }, 3000);
@@ -47,7 +52,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   //logout handler
   const logout = () => {
-    toast.success("Logout Success...");
+    toast.success("Logout Success...", { duration: 1000 });
     localStorage.removeItem("token");
     setTimeout(() => {
       setToken(null);
@@ -56,6 +61,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   const value: AuthContextProps = {
     token,
+    isLoading,
     isLoggedIn,
     login,
     logout,

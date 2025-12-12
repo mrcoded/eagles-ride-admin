@@ -7,6 +7,7 @@ import SelectedUserAvatar from "@/components/SelectedUserAvatar";
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
@@ -30,8 +31,8 @@ const RideTableModal = () => {
             <DialogTitle className="text-slate-400 dark:text-slate-200 text-base text-left font-medium">
               Driver's Information
             </DialogTitle>
+            <DialogDescription></DialogDescription>
           </DialogHeader>
-
           {userFetching ? (
             <LoadingSpinner className="size-8" />
           ) : (

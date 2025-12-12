@@ -2,7 +2,7 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Car, Check } from "lucide-react";
 
-import { DriversDataProps } from "@/components/drivers/types";
+import { DriversDataProps } from "@/types/drivers";
 
 import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
