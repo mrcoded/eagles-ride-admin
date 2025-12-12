@@ -39,27 +39,28 @@ const DriverTableModal = () => {
             <DialogTitle className="text-slate-400 dark:text-slate-200 text-base text-left font-medium">
               Driver's Information
             </DialogTitle>
-
-            {driverFetching ? (
-              <LoadingSpinner className="size-8" />
-            ) : (
-              <DialogDescription
-                aria-describedby="driver-modal-description"
-                className="flex flex-col items-center justify-center space-y-5"
-              >
-                <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:space-x-14">
-                  {/* Selected User Info */}
-                  <SelectedUserAvatar selectedDriverData={data} />
-
-                  {/* Approve Driver */}
-                  <ApproveDriver isDriver={isDriver} />
-                </div>
-
-                {/* Selected Item Info */}
-                <SelectedItemDetails isDriver={isDriver} />
-              </DialogDescription>
-            )}
+            <DialogDescription></DialogDescription>
           </DialogHeader>
+
+          {driverFetching ? (
+            <LoadingSpinner className="size-8" />
+          ) : (
+            <div
+              aria-describedby="driver-modal-description"
+              className="flex flex-col items-center justify-center space-y-5"
+            >
+              <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:space-x-14">
+                {/* Selected User Info */}
+                <SelectedUserAvatar selectedDriverData={data} />
+
+                {/* Approve Driver */}
+                <ApproveDriver isDriver={isDriver} />
+              </div>
+
+              {/* Selected Item Info */}
+              <SelectedItemDetails isDriver={isDriver} />
+            </div>
+          )}
         </DialogContent>
       </Dialog>
     </aside>

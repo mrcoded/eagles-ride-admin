@@ -1,45 +1,59 @@
-import { TableRowItemProps } from "@/types";
-import { Checkbox } from "@/components/ui/checkbox";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
+import { useHandleCheckboxChange } from "@/hooks/useHandleCheckbox";
 
-const TableRowItem = ({
+import { TableRowItemData, TableRowItemProps, TableType } from "@/types/tables";
+import { Checkbox } from "@/components/ui/checkbox";
+import { DriversDataProps } from "../../types/drivers";
+
+const TableRowItem = <T extends TableType>({
   item,
   type,
   selectedItemId,
-  onSelect,
-}: TableRowItemProps) => {
+}: TableRowItemProps<T>) => {
+  const { isModalOpen } = useGlobalContext();
+  const checkboxHandler = useHandleCheckboxChange();
+
+  // Check if type is "booking"
   const isBooking = type === "booking";
-  const user = isBooking ? item.user : item;
+  // Check if type is "booking"
+  const bookingItem = isBooking ? (item as unknown as TableRowItemData) : null;
+  // Check if type is "driver"
+  const driverItem = !isBooking ? (item as unknown as DriversDataProps) : null;
+
+  // Get user data from booked ride
+  const user = bookingItem?.user;
 
   return (
     <tr className="h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
       <td>
         <Checkbox
-          checked={selectedItemId === item._id}
+          checked={selectedItemId === item._id && isModalOpen === true}
           onCheckedChange={(checked: boolean) =>
-            onSelect(checked, user?._id || item._id, item._id)
+            checkboxHandler(checked, user?._id || item._id, item._id)
           }
           className="m-1.5 size-4 border-[1.5px] hover:border-primary focus:border-primary"
         />
       </td>
-      <td className="p-2 text-xs text-nowrap">{user?.fullname}</td>
-      <td className="p-2 text-[9px] tracking-tight">
-        {isBooking ? user?.phone_number : item.email}
+      <td className="p-2 text-xs md:text-sm text-nowrap">
+        {isBooking ? user?.fullname : driverItem?.fullname}
       </td>
-      <td className="p-1.5 text-[9px] capitalize whitespace-nowrap">
-        {isBooking ? item.trip_type : item.phone_number}
+      <td className="p-2 text-xs sm:text-sm">
+        {isBooking ? user?.phone_number : driverItem?.email}
       </td>
-      <td className="p-1.5 text-[9px] uppercase">
+      <td className="p-1.5 text-xs sm:text-sm capitalize whitespace-nowrap">
+        {isBooking ? bookingItem?.trip_type : driverItem?.phone_number}
+      </td>
+      <td className="p-1.5 text-xs sm:text-sm uppercase">
         {isBooking
-          ? item.status
-          : item.isDriverApproved
+          ? bookingItem?.status
+          : driverItem?.isDriverApproved
           ? "Approved"
           : "Not Approved"}
       </td>
-      <td className="p-2 text-[9px] tracking-tight">
-        {isBooking ? item.pick_up_location : item.status}
-      </td>
-      <td className="p-2 text-[9px] tracking-tight">
-        {isBooking ? item.drop_off_location : user?.residential_address}
+      <td className="p-2 text-xs lg:text-sm capitalize">
+        {isBooking
+          ? (bookingItem as TableRowItemData).ride_type
+          : driverItem?.status}
       </td>
     </tr>
   );
