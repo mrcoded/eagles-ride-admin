@@ -1,5 +1,5 @@
-import { BookingsDataProps } from "@/components/bookings/types";
-import { DriversDataProps } from "@/components/drivers/types";
+import { BookingsDataProps } from "@/types/bookings";
+import { DriversDataProps } from "@/types/drivers";
 
 export type RideItem = BookingsDataProps["rides"];
 export type FilterableItem = RideItem | DriversDataProps;
@@ -12,7 +12,14 @@ const filteredItemFn = <T extends FilterableItem>(
 
   if (!querySearch) return data;
 
-  const searchResult = data.filter((item) => {
+  // Filter by driver status
+  if (querySearch === "approved_driver") {
+    return data.filter(
+      (item) => "isDriverApproved" in item && item.isDriverApproved === true
+    );
+  }
+
+  return data.filter((item) => {
     return [
       item?.email,
       item?.status,
@@ -24,8 +31,6 @@ const filteredItemFn = <T extends FilterableItem>(
       "residential_address" in item ? item?.residential_address : undefined,
     ].some((field) => field?.toString().toLowerCase().includes(querySearch));
   });
-
-  return searchResult;
 };
 
 export default filteredItemFn;
