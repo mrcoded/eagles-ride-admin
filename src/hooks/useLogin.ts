@@ -22,8 +22,10 @@ const useLogin = () => {
       toast.success("Login Success...");
       //pass token to auth context
       login(tokenData?.token);
-      //Redirect
-      navigate("/dashboard");
+      setTimeout(() => {
+        //Redirect
+        navigate("/dashboard");
+      }, 1000);
     },
     onError: (error) => {
       toast.error(error.message);
