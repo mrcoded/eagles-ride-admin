@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Eye, EyeClosedIcon } from "lucide-react";
 import { FieldValues } from "react-hook-form";
 
 import useLogin from "@/hooks/useLogin";
@@ -9,13 +11,20 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "../ui/card";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
-import { Checkbox } from "../ui/checkbox";
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
+  // Toggle password visibility
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
   const { loginData, setLoginData } = useAuthContext();
 
   const { loginHandler, isLoading } = useLogin();
@@ -54,15 +63,25 @@ export function LoginForm() {
                 required
               />
             </div>
-            <div className="flex flex-col space-y-1.5">
+            <div className="relative flex flex-col space-y-1.5">
               <Label htmlFor="password">Password</Label>
               <Input
                 name="password"
                 id="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 onChange={onchangeHandler}
                 required
               />
+              <span
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 m-2 cursor-pointer"
+                onClick={togglePasswordVisibility}
+              >
+                {showPassword ? (
+                  <Eye className="size-4 " />
+                ) : (
+                  <EyeClosedIcon className="size-4" />
+                )}
+              </span>
             </div>
 
             <div className="flex items-center gap-2">
