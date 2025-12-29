@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-import { Input } from "./ui/input";
+import { Input } from "@/components/ui/input";
 import { DEBOUNCE_DELAY } from "@/constants/config";
 
 function SearchInput({ title }: { title: string }) {

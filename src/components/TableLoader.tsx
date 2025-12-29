@@ -8,7 +8,7 @@ export function TableLoader() {
     .fill(null)
     .map((_, i) => (
       <tr key={i} className="h-8 border-b">
-        {Array(7)
+        {Array(6)
           .fill(null)
           .map((_, idx) => (
             <td key={idx} className="p-1.5">

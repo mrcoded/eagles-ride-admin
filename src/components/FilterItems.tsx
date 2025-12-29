@@ -36,12 +36,12 @@ export function FilterItems({ title }: { title: string }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between h-8 dark:text-slate-400"
+          className="w-[200px] justify-between h-8 text-slate-900 dark:text-slate-50 dark:bg-slate-900"
         >
           {query
             ? filters.find((filter) => filter.value === query)?.label
             : `Filter ${title}...`}
-          <ChevronsUpDown className="opacity-50" />
+          <ChevronsUpDown className="opacity-50 dark:fill-slate-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">

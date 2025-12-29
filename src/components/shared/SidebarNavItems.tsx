@@ -36,9 +36,9 @@ function SidebarNavItems() {
                   to={item.path}
                   className={cn(
                     isActive
-                      ? "bg-gray-200 dark:bg-gray-700 text-primary"
+                      ? "bg-slate-200 dark:bg-gray-800 text-primary"
                       : "text-slate-50 lg:text-slate-800",
-                    "flex items-center py-2 px-3 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors"
+                    "flex items-center py-2 px-3 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 hover:font-semibold hover:text-primary rounded-md transition-colors"
                   )}
                 >
                   <span className="size-5">
@@ -57,7 +57,7 @@ function SidebarNavItems() {
           <Button
             variant="link"
             onClick={() => logout()}
-            className="flex items-center py-2 px-3 w-full text-slate-50 lg:text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
+            className="flex items-center py-2 px-3 w-full text-slate-50 lg:text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
           >
             <LogOut className="size-3.5" />
             <span className="ml-3 font-medium text-sm">Logout</span>

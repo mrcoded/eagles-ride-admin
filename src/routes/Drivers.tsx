@@ -46,7 +46,6 @@ function Drivers() {
 
   return (
     <>
-      {driversError && <div className="text-red-500 text-4xl">Error</div>}
       <div className="flex gap-3 w-full">
         <section className="w-full flex flex-col flex-1 justify-between">
           {/*Drivers Table*/}
@@ -59,6 +58,7 @@ function Drivers() {
                   data={filteredDrivers}
                   type="driver"
                   isLoading={driversFetching}
+                  dataError={driversError}
                 />
               )
             )}

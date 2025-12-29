@@ -5,7 +5,6 @@ export const DRIVERS_TABLE_HEADERS = [
   "Phone",
   "Approval",
   "Status",
-  "",
 ];
 
 export const RIDES_TABLE_HEADERS = [
@@ -15,5 +14,4 @@ export const RIDES_TABLE_HEADERS = [
   "Trip Type",
   "Status",
   "Ride Type",
-  "",
 ];

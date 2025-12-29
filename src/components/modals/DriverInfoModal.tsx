@@ -8,7 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../ui/dialog";
+} from "@/components/ui/dialog";
 
 function DriverInfoModal() {
   const { selectedDriverData } = useGlobalContext();
@@ -26,12 +26,12 @@ function DriverInfoModal() {
           key={item.label}
           className="flex justify-between items-center py-1.5 px-2 bg-primary dark:bg-orange-600 rounded-sm w-full"
         >
-          <p className="flex gap-2 items-center justify-center text-slate-100 text-xs sm:text-sm font-medium">
-            <item.icon className="size-2.5 lg:size-3.5 stroke-slate-200" />
+          <p className="flex gap-2.5 items-center justify-center text-slate-100 text-xs sm:text-sm font-medium">
+            <item.icon className="size-2.5 lg:size-4 stroke-slate-200" />
             <>{item.label}</>
           </p>
           <Dialog>
-            <DialogTrigger className="text-slate-200 text-[10px] lg:text-xs hover:underline font-medium">
+            <DialogTrigger className="text-slate-50 text-[10px] lg:text-xs hover:underline font-medium">
               View
             </DialogTrigger>
 

@@ -32,11 +32,11 @@ const DriverTableModal = () => {
     <aside className="w-full rounded-2xl shadow">
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
         <DialogContent
-          className="container"
+          className="container dark:bg-gray-900"
           aria-describedby="driver-modal-content"
         >
           <DialogHeader>
-            <DialogTitle className="text-slate-400 dark:text-slate-200 text-base text-left font-medium">
+            <DialogTitle className="text-slate-800 dark:text-slate-50 text-base text-left font-medium">
               Driver's Information
             </DialogTitle>
             <DialogDescription></DialogDescription>
@@ -49,7 +49,7 @@ const DriverTableModal = () => {
               aria-describedby="driver-modal-description"
               className="flex flex-col items-center justify-center space-y-5"
             >
-              <div className="flex flex-col items-center justify-center gap-2 sm:flex-row sm:space-x-14">
+              <div className="flex flex-col items-center justify-center gap-4 w-full">
                 {/* Selected User Info */}
                 <SelectedUserAvatar selectedDriverData={data} />
 

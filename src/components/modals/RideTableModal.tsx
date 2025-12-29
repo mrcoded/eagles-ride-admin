@@ -24,12 +24,12 @@ const RideTableModal = () => {
     <aside className="w-full rounded-2xl shadow">
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
         <DialogContent
-          className="max-w-full sm:max-w-3xl"
+          className="max-w-full sm:max-w-3xl dark:bg-gray-900"
           aria-describedby={"rides-modal-content"}
         >
           <DialogHeader>
-            <DialogTitle className="text-slate-400 dark:text-slate-200 text-base text-left font-medium">
-              Driver's Information
+            <DialogTitle className="text-slate-800 dark:text-slate-50 text-base text-left font-medium">
+              Ride's Information
             </DialogTitle>
             <DialogDescription></DialogDescription>
           </DialogHeader>

@@ -13,7 +13,7 @@ export function LargeCard() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xl:gap-6">
       {largeCardData.map((item, idx) => (
-        <Card className="w-full dark:bg-slate-800" key={idx}>
+        <Card className="w-full dark:bg-slate-900" key={idx}>
           <CardHeader>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
@@ -45,7 +45,7 @@ export function SmallCard() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-3 xl:gap-6">
       {smallCardData.map((item, idx) => (
-        <Card key={idx} className="w-full dark:bg-slate-800">
+        <Card key={idx} className="w-full dark:bg-slate-900">
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>{item.label}</CardTitle>
             <item.icon className="h-5 w-5 text-primary" />
