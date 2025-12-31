@@ -19,7 +19,7 @@ function RideBookings() {
   } = useGlobalContext();
 
   //Get all rides
-  const { rides, ridesFetching, ridesPending } = BookingService();
+  const { rides, ridesFetching, ridesPending, ridesError } = BookingService();
 
   // Filtered rides based on search query
   const filteredBookings = useMemo(() => {
@@ -52,9 +52,10 @@ function RideBookings() {
             data={filteredBookings}
             type="booking"
             isLoading={ridesFetching}
+            dataError={ridesError}
           />
         ) : (
-          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
+          <div className="text-center h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-slate-100 dark:hover:bg-slate-800">
             <LoadingSpinner className="size-10" />
           </div>
         )}

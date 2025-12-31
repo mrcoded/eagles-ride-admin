@@ -11,6 +11,7 @@ export const BookingService = () => {
     data: { rides } = { rides: [] },
     isPending: ridesPending,
     isFetching: ridesFetching,
+    isError: ridesError,
   } = useQuery<{
     rides: BookingsDataProps["rides"][];
   }>({
@@ -22,5 +23,10 @@ export const BookingService = () => {
       }),
   });
 
-  return { rides, ridesFetching, ridesPending };
+  return {
+    rides,
+    ridesFetching,
+    ridesPending,
+    ridesError,
+  };
 };
