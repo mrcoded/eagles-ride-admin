@@ -10,7 +10,10 @@ export default {
 				sm: 'calc(var(--radius) - 4px)'
 			},
 			colors: {
-				primary: "#FF5500"
+				primary: "#FF5500",
+				dark: {
+					100: "#0a0a0a",
+				}
 			}
 		}
 	},
