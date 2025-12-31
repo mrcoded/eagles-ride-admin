@@ -1,8 +1,14 @@
 import { Checkbox } from "@/components/ui/checkbox";
 import { useHandleCheckboxChange } from "@/hooks/useHandleCheckbox";
-import { ShiftSelectorProps } from "../../types/bookings";
+import { useGlobalContext } from "@/hooks/useGlobalContext";
 
-function ShiftSelector({ shift, setShift, setItemId }: ShiftSelectorProps) {
+function ShiftSelector({
+  setItemId,
+}: {
+  setItemId?: React.Dispatch<React.SetStateAction<string | null>>;
+}) {
+  const { shift, setShift } = useGlobalContext();
+
   // Handle checkbox change
   const checkboxHandler = useHandleCheckboxChange(setItemId);
 

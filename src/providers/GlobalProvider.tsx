@@ -15,6 +15,7 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(true);
   const [driverId, setDriverId] = useState<string | undefined>("");
+  const [shift, setShift] = useState<"morning" | "afternoon" | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [toolbarTitle, setToolbarTitle] = useState("");
@@ -48,6 +49,8 @@ const GlobalProvider: React.FC<GlobalProviderProps> = ({ children }) => {
         setToolbarTitle,
         isOpen,
         setIsOpen,
+        shift,
+        setShift,
         isLoading,
         setIsLoading,
         isModalOpen,

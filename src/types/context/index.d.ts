@@ -20,6 +20,10 @@ export interface GlobalContextProps {
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   isModalOpen: boolean;
   setIsModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  shift: "morning" | "afternoon" | null;
+  setShift: React.Dispatch<
+    React.SetStateAction<"morning" | "afternoon" | null>
+  >;
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
   selectedUserId: string | undefined;
