@@ -11,6 +11,8 @@ const TableRowItem = <T extends TableType>({
   selectedItemId,
 }: TableRowItemProps<T>) => {
   const { isModalOpen } = useGlobalContext();
+
+  // Handle checkbox change
   const checkboxHandler = useHandleCheckboxChange();
 
   // Check if type is "booking"
@@ -24,8 +26,8 @@ const TableRowItem = <T extends TableType>({
   const user = bookingItem?.user;
 
   return (
-    <tr className="h-8 text-slate-800 dark:text-slate-100 font-medium border-b last:border-0 hover:bg-gray-100 dark:hover:bg-slate-800">
-      <td>
+    <tr className="text-center w-full font-medium dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 cursor-pointer">
+      <td className="flex items-center justify-center">
         <Checkbox
           checked={selectedItemId === item._id && isModalOpen === true}
           onCheckedChange={(checked: boolean) =>

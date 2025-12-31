@@ -18,14 +18,14 @@ const useAssignDriver = () => {
       console.log("Assigning Driver request...");
     },
     onError: (error) => {
-      toast.error(error.message, { duration: 5000 });
+      toast.error(error.message, { duration: 3000 });
       console.log(error);
     },
   });
 
   //assign driver to ride function
   const assignDriverHandler = async (
-    driverId: string,
+    driverId: string | undefined,
     shift: string | null
   ) => {
     try {

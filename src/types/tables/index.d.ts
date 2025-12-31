@@ -13,7 +13,9 @@ export interface DataTableProps<T extends TableType> {
   type: T;
   data: TableDataMap[T];
   isLoading: boolean;
+  dataError: boolean;
 }
+
 export interface TableRowItemData {
   _id: string;
   user: UserProps;

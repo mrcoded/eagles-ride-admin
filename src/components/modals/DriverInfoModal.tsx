@@ -24,19 +24,19 @@ function DriverInfoModal() {
       {driverInfo?.map((item) => (
         <div
           key={item.label}
-          className="flex justify-between items-center py-1.5 px-2 bg-primary dark:bg-orange-600 rounded-sm w-full"
+          className="flex justify-between items-center py-1.5 px-2 bg-primary dark:bg-slate-800 rounded-sm w-full"
         >
-          <p className="flex gap-2.5 items-center justify-center text-slate-100 text-xs sm:text-sm font-medium">
-            <item.icon className="size-2.5 lg:size-4 stroke-slate-200" />
+          <p className="flex gap-2.5 items-center justify-center text-slate-200 text-xs sm:text-sm font-medium">
+            <item.icon className="size-2.5 lg:size-4 stroke-slate-200 dark:stroke-slate-400" />
             <>{item.label}</>
           </p>
           <Dialog>
-            <DialogTrigger className="text-slate-50 text-[10px] lg:text-xs hover:underline font-medium">
+            <DialogTrigger className="text-slate-200 text-[10px] lg:text-xs hover:underline font-medium">
               View
             </DialogTrigger>
 
             {/* Driver's documents modal */}
-            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
+            <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto dark:bg-dark-100">
               <DialogHeader>
                 <DialogTitle className="text-[#222b45] dark:text-slate-200 text-base font-medium">
                   {item.label}
@@ -50,7 +50,7 @@ function DriverInfoModal() {
                   <>
                     {isPdf(item.value) ? (
                       <div className="w-full flex flex-col gap-2">
-                        {/* 1. The PDF Viewer */}
+                        {/* PDF Viewer */}
                         <iframe
                           src={`${item.value}#toolbar=0`}
                           className="w-full h-[400px] rounded-md border border-slate-200"
@@ -76,7 +76,7 @@ function DriverInfoModal() {
                     )}
                   </>
                 ) : (
-                  <p className="text-[#222b45] text-sm font-medium">
+                  <p className="text-[#222b45] dark:text-slate-200 text-sm font-medium">
                     {item.label} document not yet uploaded.
                   </p>
                 )}

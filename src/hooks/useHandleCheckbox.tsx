@@ -4,8 +4,13 @@ import { useGlobalContext } from "@/hooks/useGlobalContext";
 export const useHandleCheckboxChange = (
   setItemId?: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
-  const { setIsOpen, setIsModalOpen, setSelectedItemId, setSelectedUserId } =
-    useGlobalContext();
+  const {
+    setIsOpen,
+    setIsModalOpen,
+    setDriverId,
+    setSelectedItemId,
+    setSelectedUserId,
+  } = useGlobalContext();
 
   const checkboxHandler = (
     checked: boolean,
@@ -22,9 +27,12 @@ export const useHandleCheckboxChange = (
         setIsModalOpen(true);
       }
     } else {
-      if (setItemId) setItemId(null);
-      else {
+      if (setItemId) {
+        setItemId(null);
+        setDriverId("");
+      } else {
         setSelectedItemId(null);
+        setDriverId("");
         setSelectedUserId("");
         setIsModalOpen(false);
       }

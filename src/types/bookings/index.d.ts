@@ -67,8 +67,8 @@ export interface SelectedBookedRideProps {
   pick_up_location?: string;
   pickup_days?: string[];
   address?: string;
-  driver_from?: string;
-  driver_to?: string;
+  drivers?: string;
+  schedule_type?: string;
 }
 
 export interface UserProps {
