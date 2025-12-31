@@ -1,3 +1,5 @@
+import { AlertCircle } from "lucide-react";
+
 import { DriverService } from "@/services/driverService";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
@@ -32,11 +34,11 @@ const DriverTableModal = () => {
     <aside className="w-full rounded-2xl shadow">
       <Dialog open={isModalOpen} onOpenChange={() => setIsModalOpen(false)}>
         <DialogContent
-          className="container dark:bg-gray-900"
+          className="container dark:bg-dark-100"
           aria-describedby="driver-modal-content"
         >
           <DialogHeader>
-            <DialogTitle className="text-slate-800 dark:text-slate-50 text-base text-left font-medium">
+            <DialogTitle className="text-slate-800 dark:text-slate-200 text-base text-left font-medium">
               Driver's Information
             </DialogTitle>
             <DialogDescription></DialogDescription>
@@ -44,7 +46,7 @@ const DriverTableModal = () => {
 
           {driverFetching ? (
             <LoadingSpinner className="size-8" />
-          ) : (
+          ) : data ? (
             <div
               aria-describedby="driver-modal-description"
               className="flex flex-col items-center justify-center space-y-5"
@@ -60,6 +62,11 @@ const DriverTableModal = () => {
               {/* Selected Item Info */}
               <SelectedItemDetails isDriver={isDriver} />
             </div>
+          ) : (
+            <p className="text-center text-base font-medium dark:text-primary">
+              <AlertCircle className="size-4 inline mr-1" /> Error getting
+              driver's data!
+            </p>
           )}
         </DialogContent>
       </Dialog>
