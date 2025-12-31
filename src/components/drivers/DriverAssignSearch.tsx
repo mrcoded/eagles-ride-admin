@@ -27,14 +27,13 @@ function DriverAssignSearch({
   approvedDrivers: DriversDataProps[] | undefined;
 }) {
   const [itemId, setItemId] = useState<string | null>(null);
-  const [shift, setShift] = useState<"morning" | "afternoon" | null>(null);
 
   //Global context
   const { query, setQuery, setDriverId, selectedRideData, isOpen } =
     useGlobalContext();
 
   //assign driver(s) handler
-  const { isLoading, assignDriverHandler } = useAssignDriver();
+  const { isLoading } = useAssignDriver();
 
   // Handle checkbox change
   const checkboxHandler = useHandleCheckboxChange(setItemId);
@@ -45,9 +44,9 @@ function DriverAssignSearch({
   );
 
   return (
-    <Command className="rounded-lg border shadow-md md:min-w-[450px]">
+    <Command className="rounded-lg border shadow-md md:min-w-[450px] dark:bg-dark-100">
       {/* Select shift */}
-      <ShiftSelector shift={shift} setShift={setShift} />
+      <ShiftSelector />
 
       <CommandInput
         value={query}
@@ -59,21 +58,15 @@ function DriverAssignSearch({
         <CommandGroup heading="Drivers Suggestions">
           {approvedDrivers?.map((item, index) => {
             //Check if driver is selected
-            const selectedDriver = acceptedDrivers?.find(
-              (driver) =>
+            const selectedDriver = acceptedDrivers?.find((driver) => {
+              return (
                 driver?.id === item?._id &&
-                driver?.assignmentStatus === "accepted" &&
-                driver?.shift
-            );
+                driver?.assignmentStatus === "accepted"
+              );
+            });
 
             //Check if driver is assigned
             const assignedDriver = selectedDriver?.id === item._id;
-
-            //Assign driver
-            const assignDriver = (e: React.MouseEvent<HTMLButtonElement>) => {
-              e.preventDefault();
-              assignDriverHandler(item._id, shift);
-            };
 
             return (
               <CommandItem
@@ -90,7 +83,6 @@ function DriverAssignSearch({
                   variant="link"
                   key={item._id}
                   className="flex justify-between items-center w-full"
-                  onClick={assignDriver}
                 >
                   {item.fullname}
                   {assignedDriver && <Check className={cn("ml-auto size-5")} />}
