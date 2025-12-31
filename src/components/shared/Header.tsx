@@ -9,7 +9,7 @@ function Header() {
   const { sidebarOpen, setSidebarOpen, toolbarTitle } = useGlobalContext();
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center justify-between px-4 lg:px-6 gap-2 bg-white border-b space-x-5">
+    <header className="sticky top-0 z-40 flex h-16 items-center justify-between px-4 lg:px-6 gap-2 border-b dark:border-slate-800 space-x-5">
       {!sidebarOpen && (
         <Menu
           onClick={() => setSidebarOpen(!sidebarOpen)}

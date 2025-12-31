@@ -5,7 +5,7 @@ import useAssignDriver from "@/hooks/useAssignDriver";
 import { useGlobalContext } from "@/hooks/useGlobalContext";
 
 import { LoadingSpinner } from "@/components/Loading";
-import UnAssignDriver from "@/components/drivers/UnassignDriver";
+import DriverAction from "@/components/drivers/DriverAction";
 import DriverAssignSearch from "@/components/drivers/DriverAssignSearch";
 
 import { DriversDataProps } from "@/types/drivers";
@@ -36,7 +36,7 @@ function AssignDriverAction({
           setIsOpen(true);
         }}
         className={cn(
-          `flex items-center gap-1 h-5 bg-orange-200 text-xs p-1.5 font-semibold text-primary rounded-sm hover:bg-slate-400 whitespace-nowrap`,
+          `flex items-center gap-1 bg-orange-200 text-xs px-1.5 py-1 font-semibold text-primary rounded-sm hover:bg-slate-400 dark:hover:bg-slate-800 dark:hover:text-slate-200 whitespace-nowrap`,
           isLoading && "pointer-events-none bg-slate-400 "
         )}
       >
@@ -47,15 +47,15 @@ function AssignDriverAction({
           <CheckCheck className="size-3" />
         )}
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className="dark:bg-dark-100">
         <DialogHeader>
           <DialogTitle className="dark:text-slate-200">
             Select any available driver
           </DialogTitle>
           <DialogDescription className="flex justify-between">
             <span>This is a list of only available drivers.</span>
-            {/* UnAssign Driver */}
-            <UnAssignDriver />
+            {/* Assign / UnAssign Driver */}
+            <DriverAction />
           </DialogDescription>
         </DialogHeader>
         <div>

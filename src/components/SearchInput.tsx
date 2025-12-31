@@ -31,7 +31,7 @@ function SearchInput({ title }: { title: string }) {
   }, [searchTerm, updateSearchQuery]);
 
   return (
-    <div className="flex justify-center rounded-lg border shadow-sm md:max-w-[350px]">
+    <div className="flex justify-center rounded-lg border dark:border-slate-600 shadow-sm md:min-w-[350px]">
       <Input
         type="text"
         onChange={(e) => setSearchTerm(e.target.value)}

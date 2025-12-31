@@ -13,7 +13,7 @@ export function LargeCard() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-3 xl:gap-6">
       {largeCardData.map((item, idx) => (
-        <Card className="w-full dark:bg-slate-900" key={idx}>
+        <Card className="w-full dark:bg-dark-100" key={idx}>
           <CardHeader>
             <CardTitle>{item.title}</CardTitle>
             <CardDescription>{item.description}</CardDescription>
@@ -22,12 +22,12 @@ export function LargeCard() {
             {item.data.map((item, idx) => (
               <div
                 key={idx}
-                className="flex flex-col py-4 gap-4 items-center justify-center shadow-md dark:shadow-sm dark:shadow-slate-100 rounded-md"
+                className="flex flex-col py-4 gap-4 items-center justify-center shadow-md dark:shadow-sm dark:shadow-slate-100 dark:text-slate-200 rounded-md"
               >
-                <p className="text-xs text-muted-foreground text-center">
+                <p className="text-xs text-center dark:text-slate-300">
                   {item.label}
                 </p>
-                <div className="text-xl font-bold text-muted-foreground">
+                <div className="text-xl font-bold dark:text-slate-500">
                   {item.value}
                 </div>
               </div>
@@ -45,16 +45,16 @@ export function SmallCard() {
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 gap-3 xl:gap-6">
       {smallCardData.map((item, idx) => (
-        <Card key={idx} className="w-full dark:bg-slate-900">
+        <Card key={idx} className="w-full dark:bg-dark-100 ">
           <CardHeader className="flex flex-row items-center justify-between">
-            <CardTitle>{item.label}</CardTitle>
-            <item.icon className="h-5 w-5 text-primary" />
+            <CardTitle className="dark:text-slate-200">{item.label}</CardTitle>
+            <item.icon className="h-5 w-5 text-primary dark:text-slate-200" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl mb-1 font-bold text-muted-foreground">
+            <div className="text-2xl dark:text-slate-300 mb-1 font-bold">
               {item.value}
             </div>
-            <p className="text-xs text-muted-foreground tracking-tight">
+            <p className="text-xs dark:text-slate-500 tracking-tight">
               {item.value} {item.label.toLowerCase()}
             </p>
           </CardContent>

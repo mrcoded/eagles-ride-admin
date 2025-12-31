@@ -17,7 +17,7 @@ function SidebarNavItems() {
 
   return (
     <>
-      <div className="h-16 items-center mb-6 p-4  border-b">
+      <div className="h-16 items-center mb-6 p-4 border-b dark:border-slate-800">
         <img
           src="assets/logo.svg"
           alt="Eaglesrides Logo"

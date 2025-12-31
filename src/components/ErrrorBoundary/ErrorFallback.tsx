@@ -6,7 +6,7 @@ export const ErrorFallback = ({ reset }: ErrorFallbackProps) => {
       <h2 className="text-3xl font-bold text-red-600 mb-4">
         System Malfunction
       </h2>
-      <p className="text-gray-700 mb-6">
+      <p className="text-slate-700 mb-6">
         Oops! Something went wrong. We have been notified.
       </p>
       <button

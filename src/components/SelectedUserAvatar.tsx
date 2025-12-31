@@ -21,14 +21,14 @@ const SelectedUserAvatar = ({
       </div>
       <div className="flex flex-col">
         {childData && (
-          <h3 className="text-base font-medium py-1 underline">
+          <h3 className="text-base font-medium py-1 underline dark:text-slate-200">
             Child's Details
           </h3>
         )}
-        <p className="text-left text-base md:text-lg font-bold py-1 tracking-wide">
+        <p className="text-left text-base md:text-lg font-bold py-1 dark:text-slate-200 tracking-normal">
           {data?.fullname}
         </p>
-        <p className="flex items-center gap-1 text-slate-500 text-sm text-left tracking-tight leading-4">
+        <p className="flex items-center gap-1 text-slate-600 dark:text-slate-200 text-sm text-left tracking-tight leading-4">
           {childData ? (
             <School2 className="size-3" />
           ) : (
@@ -36,7 +36,7 @@ const SelectedUserAvatar = ({
           )}
           {data?.address ?? data?.residential_address} {data?.school}
         </p>
-        <p className="flex items-center text-slate-500 text-sm gap-1">
+        <p className="flex items-center text-slate-600 dark:text-slate-200 text-sm gap-1">
           {childData ? (
             <User2 className="size-3" />
           ) : (
@@ -44,7 +44,7 @@ const SelectedUserAvatar = ({
           )}
           {childData ? `Age - ${data?.age} years` : data?.email}
         </p>
-        <p className="flex items-center text-slate-500 text-sm gap-1 capitalize tracking-tight">
+        <p className="flex items-center text-slate-600 dark:text-slate-200 text-sm gap-1 capitalize tracking-tight">
           {childData ? (
             <User2 className="size-3" />
           ) : (

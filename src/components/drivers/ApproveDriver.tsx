@@ -16,7 +16,7 @@ function ApproveDriver({ isDriver }: { isDriver: boolean | undefined }) {
         <button
           onClick={approveDriverHandler}
           className={cn(
-            `flex items-center justify-center gap-1 bg-primary text-xs p-2 font-medium text-slate-50 rounded-sm hover:bg-slate-600 whitespace-nowrap`,
+            `flex items-center justify-center gap-1 bg-primary dark:bg-slate-200 text-xs p-2 font-medium text-slate-50 dark:text-slate-800 rounded-sm hover:bg-slate-600 dark:hover:bg-primary dark:hover:text-slate-50 whitespace-nowrap`,
             isLoading && "pointer-events-none bg-slate-600 "
           )}
         >

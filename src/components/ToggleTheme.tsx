@@ -13,7 +13,7 @@ export function ToggleTheme() {
   const toggleTheme = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
 
-    setIsDarkMode(!isDarkMode);
+    setIsDarkMode((prevIsDarkMode) => !prevIsDarkMode);
     setTheme(isDarkMode ? "light" : "dark");
   };
 
@@ -21,7 +21,7 @@ export function ToggleTheme() {
     <Button
       variant="link"
       onClick={toggleTheme}
-      className="flex items-center py-2 px-3 text-slate-50 lg:text-slate-800 dark:text-gray-200 hover:bg-gray-200 dark:hover:bg-gray-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
+      className="flex items-center py-2 px-3 text-slate-50 lg:text-slate-800 dark:text-slate-200 hover:bg-slate-200 dark:hover:bg-slate-700 hover:font-semibold hover:text-primary rounded-md transition-colors cursor-pointer"
     >
       {isDarkMode ? (
         <LucideMoon className="size-3.5" />

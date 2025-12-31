@@ -36,7 +36,7 @@ export function FilterItems({ title }: { title: string }) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between h-8 text-slate-900 dark:text-slate-50 dark:bg-slate-900"
+          className="w-[200px] justify-between h-8 text-slate-900 dark:text-slate-200 dark:border-slate-600"
         >
           {query
             ? filters.find((filter) => filter.value === query)?.label
